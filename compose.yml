@@ -30,26 +30,12 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+    depends_on:
+      mariadb: *healthy
     volumes:
       - .:/app
     env_file:
       - .env
-
-  test:
-    build:
-      context: .
-      target: development
-    volumes:
-      - .:/app
-    depends_on:
-      mariadb: *healthy
-    command: bash -c "bundle exec rspec"
-    deploy:
-      restart_policy:
-        condition: none
-    environment:
-      - RAILS_ENV=test
-      - DB_HOST=mariadb
 
   mariadb:
     image: mariadb
