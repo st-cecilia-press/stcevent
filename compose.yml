@@ -23,6 +23,18 @@ services:
     environment:
       - DB_HOST=mariadb
 
+  dev:
+    build:
+      context: .
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
   test:
     build:
       context: .

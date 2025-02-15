@@ -34,3 +34,12 @@
 /config/master.key
 
 /vendor
+
+# dev containers
+.ruby-lsp
+.vscode-server
+.ssh
+.gitconfig
+.local
+.dotnet
+.cache
