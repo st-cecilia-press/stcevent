@@ -15,7 +15,7 @@ jobs:
           MARIADB_DATABASE: database
           MARIADB_ROOT_PASSWORD: password
         ports: ["3306:3306"]
-        options: --health-cmd="healthcheck.sh -su-mysql --connect --innodb_initialized" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="healthcheck.sh --su-mysql --connect --innodb_initialized" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
       - uses: actions/checkout@v3
@@ -23,11 +23,6 @@ jobs:
         run:  cat env.* > .env
       - name: Load .env file
         uses: xom9ikk/dotenv@v2
-      - name: wait for mysql
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
-            sleep 1
-          done   
       - name: Set up Ruby 3.4
         uses: ruby/setup-ruby@v1
         with:
