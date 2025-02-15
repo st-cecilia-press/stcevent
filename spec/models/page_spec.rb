@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Page, "validations" do
+RSpec.describe Page do
   it "has a slug" do
     create(:page)
 

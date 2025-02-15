@@ -8,7 +8,7 @@ FactoryBot.define do
   end
 
   factory :page, class: "Page" do
-    title { Faker::Lorem.words(number: 4) }
+    title { Faker::Lorem.words(number: 4).join(" ").titlecase }
     body { Faker::Markdown.sandwich(sentences: 6) }
     event
     slug { Faker::Lorem.word }

@@ -43,5 +43,5 @@
 .local
 .dotnet
 .cache
-.bash_history
+.*_history
 **/*.sw?

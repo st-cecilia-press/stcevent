@@ -37,7 +37,6 @@ FROM base AS development
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
   vim-tiny
 
-ENV RAILS_ENV development
 USER app
 
 ################################################################################

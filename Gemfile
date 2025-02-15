@@ -8,6 +8,7 @@ gem "trilogy", "~> 2.7"
 gem "puma", ">= 5.0"
 gem "devise"
 gem "factory_bot_rails"
+gem "kramdown"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
