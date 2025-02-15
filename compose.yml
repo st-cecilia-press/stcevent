@@ -16,8 +16,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
-      - gem_cache:/gems
+      - .:/app
     depends_on:
       mariadb: *healthy
     command: bash -c "bundle exec rails s -b 0.0.0.0"
@@ -29,8 +28,7 @@ services:
       context: .
       target: development
     volumes:
-      - .:/usr/src/app
-      - gem_cache:/gems
+      - .:/app
     depends_on:
       mariadb: *healthy
     command: bash -c "bundle exec rspec"
@@ -54,5 +52,4 @@ services:
 
 
 volumes:
-  gem_cache:
   database:

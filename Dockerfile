@@ -1,38 +1,55 @@
-FROM ruby:3.4 AS base
+################################################################################
+# BASE
+################################################################################
+FROM ruby:3.4-slim AS base
 
-ARG UNAME=app
 ARG UID=1000
 ARG GID=1000
 
-ENV BUNDLE_PATH /gems
-
-FROM base AS development
-
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
-  nodejs
+  build-essential \
+  libssl-dev \
+  libtool \
+  libyaml-dev
 
-WORKDIR /usr/src/app
-RUN gem install bundler
-
-# TODO another stage with npm build etc
-
-FROM base AS production
+RUN groupadd -g ${GID} -o app
+RUN useradd -m -d /app -u ${UID} -g ${GID} -o -s /bin/bash app
 
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
-ENV RAILS_ENV production
-ENV BUNDLE_PATH /gems
+ENV BUNDLE_PATH /app/vendor/bundle
 
-RUN groupadd -g $GID -o $UNAME
-RUN useradd -m -d /usr/src/app -u $UID -g $GID -o -s /bin/bash $UNAME
-RUN mkdir -p /gems && chown $UID:$GID /gems
+# Change to app and back so that bundler created files in /gmes are owned by the
+# app user
+USER app
+RUN gem install bundler
+USER root
 
-USER $UNAME
-WORKDIR /usr/src/app
-
-COPY Gemfile* /usr/src/app/
-RUN bundle install
-
-COPY --chown=app:app . /usr/src/app
+WORKDIR /app
 
 CMD ["sh", "-c", "bin/rails s"]
+
+################################################################################
+# DEVELOPMENT                                           								       # 
+################################################################################
+FROM base AS development
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+  vim-tiny
+
+ENV RAILS_ENV development
+USER app
+
+################################################################################
+# PRODUCTION                                                                   #
+################################################################################
+FROM base AS production
+
+ENV RAILS_ENV production
+ENV BUNDLE_WITHOUT=development:test
+
+COPY --chown=${UID}:${GID} . /app
+
+USER app
+
+RUN bundle install
