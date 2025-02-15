@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe 'GET /:slug', type: :request do
-  it 'gets the right page' do
-    page = create(:page, slug: 'testpage')
+RSpec.describe "GET /:slug", type: :request do
+  it "gets the right page" do
+    page = create(:page, slug: "testpage")
 
     get "/testpage"
 
@@ -10,10 +10,33 @@ RSpec.describe 'GET /:slug', type: :request do
     expect(response.body).to include("<title>#{page.title}</title>")
   end
 
-  it "gets the page for the current event"
+  context "with two pages with the same slug for different events" do
+    let(:old_event) { create(:event, start_date: Date.today - 1000) }
+    let(:new_event) { create(:event, start_date: Date.today) }
 
-  it "can get a page for a different event"
+    before(:each) do
+      create(:page, event: old_event, title: "Very Outdated", slug: "home")
+      create(:page, event: new_event, title: "Current Info", slug: "home")
+    end
+
+    it "gets the page for the current event" do
+      get "/home"
+
+      expect(response.body).to include("Current Info")
+    end
+
+    it "can get a page for a different event" do
+      get "/events/#{old_event.id}/home"
+
+      expect(response.body).to include("Very Outdated")
+    end
+  end
+
+  it "converts markdown to html as expected" do
+    page = create(:page, body: "# Here is a Header", slug: "headerpage")
   
-  it "converts markdown to html as expected"
-end
+    get "/headerpage"
 
+    expect(response.body).to include(%r(<h1[^>]*>Here is a Header</h1>))
+  end
+end
