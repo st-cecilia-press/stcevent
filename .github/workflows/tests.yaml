@@ -1,27 +1,39 @@
 name: Run Tests
 
-on:
-  push:
-    branches:
-      - main
-
-  pull_request:
+on: push
 
 jobs:
   # Run tests
   test:
     runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb
+        env:
+          MARIADB_USER: user
+          MARIADB_PASSWORD: password
+          MARIADB_DATABASE: database
+          MARIADB_ROOT_PASSWORD: password
+        ports: ["3306:3306"]
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up tests
+      - uses: actions/checkout@v3
+      - name: Create .env file
+        run:  cat env.* > .env
+      - name: Load .env file
+        uses: xom9ikk/dotenv@v2
+      - name: wait for mysql
         run: |
-          docker compose build
-          docker compose run test bundle install
-
-      - name: Run standardrb
-        run: docker compose run test bundle exec standardrb
-
-      - name: Run tests
-        run: docker compose run test
+          while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
+            sleep 1
+          done   
+      - name: Set up Ruby 3.4
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: run tests
+        run: bundle exec rspec
+        env: 
+          GHA_TEST: "true"
