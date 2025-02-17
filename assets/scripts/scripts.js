@@ -1,1 +1,1 @@
-alert("Go away!")
+alert("Va t'en!")

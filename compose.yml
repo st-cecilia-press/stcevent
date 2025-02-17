@@ -53,6 +53,37 @@ services:
       <<: *healthcheck-defaults
       test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
 
+  js:
+    build:
+      context: .
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command:
+      - npm
+      - run
+      - watch:js
+
+  css:
+    build:
+      context: .
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command:
+      - npm
+      - run
+      - watch:css
 
 volumes:
   database:

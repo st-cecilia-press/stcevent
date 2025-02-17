@@ -22,7 +22,9 @@
         "build:css": "sass $* assets/styles:public/styles --style=compressed",
         "build:js": "npm run lint && npx esbuild \"assets/scripts/**/scripts.js\" --entry-names=[dir]/[name] --outbase=assets/scripts --bundle --minify --outdir=public/scripts $*",
         "lint": "npx eslint eslint.config.mjs assets/scripts/ ",
-        "lint:fix": "npm run lint -- --fix"
+        "lint:fix": "npm run lint -- --fix",
+        "watch:css": "npm run build:css -- --watch",
+        "watch:js": "npm run build:js -- --watch=forever"
     },
     "devDependencies": {
         "@eslint/js": "^9.20.0",
