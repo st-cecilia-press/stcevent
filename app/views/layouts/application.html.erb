@@ -18,10 +18,11 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "application" %>
+    <link href="/styles/styles.css" rel="stylesheet" />
   </head>
 
   <body>
     <%= yield %>
   </body>
+  <script defer src="/scripts/scripts.js"></script>
 </html>

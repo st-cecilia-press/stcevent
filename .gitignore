@@ -9,6 +9,8 @@
 
 /.npm
 
+/node_modules/
+
 # Ignore all environment files.
 /.env*
 
@@ -31,6 +33,8 @@
 !/tmp/storage/.keep
 
 /public/assets
+/public/scripts/*
+/public/styles/*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
