@@ -33,10 +33,21 @@ RSpec.describe "GET /:slug", type: :request do
   end
 
   it "converts markdown to html as expected" do
-    page = create(:page, body: "# Here is a Header", slug: "headerpage")
-  
+    create(:page, body: "# Here is a Header", slug: "headerpage")
     get "/headerpage"
 
-    expect(response.body).to include(%r(<h1[^>]*>Here is a Header</h1>))
+    expect(response.body).to include(%r{<h1[^>]*>Here is a Header</h1>})
+  end
+end
+
+RSpec.describe "GET /events/:event_id/:slug/edit", type: :request do
+  it "gets the right page with a text box" do
+    page = create(:page)
+
+    get "/events/#{page.event_id}/#{page.slug}/edit"
+
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(%r{<input[^>]*>#{page.title}</input>})
+    expect(response.body).to include(%r{<textarea[^>]*>#{page.body}</input>})
   end
 end

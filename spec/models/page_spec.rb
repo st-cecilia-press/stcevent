@@ -6,4 +6,6 @@ RSpec.describe Page do
 
     expect(Page.first.slug).not_to be_nil
   end
+  it "cannot have a slug that conflicts with another route"
+  # example "/activities" or "/locations" or "/events"
 end
