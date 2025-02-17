@@ -38,6 +38,9 @@ services:
       - .env
     environment:
       - DB_HOST=mariadb
+    command:
+      - sleep
+      - infinity
 
   mariadb:
     image: mariadb

@@ -5,12 +5,22 @@ FROM ruby:3.4-slim AS base
 
 ARG UID=1000
 ARG GID=1000
+ARG NODE_MAJOR=22
 
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
-  build-essential \
-  libssl-dev \
-  libtool \
-  libyaml-dev
+    build-essential \
+    libssl-dev \
+    libtool \
+    libyaml-dev \
+    curl \
+    gpg
+
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_MAJOR}.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends nodejs
+
+RUN npm install -g npm
 
 RUN groupadd -g ${GID} -o app
 RUN useradd -m -d /app -u ${UID} -g ${GID} -o -s /bin/bash app
@@ -35,7 +45,7 @@ CMD ["sh", "-c", "bin/rails s"]
 FROM base AS development
 
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
-  vim-tiny
+    vim-tiny
 
 USER app
 
@@ -52,3 +62,6 @@ COPY --chown=${UID}:${GID} . /app
 USER app
 
 RUN bundle install
+
+RUN npm ci
+RUN npm run build
