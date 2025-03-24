@@ -1,9 +1,9 @@
 class PagesController < ApplicationController
   def show
-    if(params[:slug])
-      @page = Page.find_by!(slug: params[:slug], event: event)
+    @page = if params[:slug]
+      Page.find_by!(slug: params[:slug], event: event)
     else
-      @page = Page.find(params[:id])
+      Page.find(params[:id])
     end
   end
 
@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     redirect_to page_path(page)
   end
 
-  alias :edit :show
+  alias_method :edit, :show
 
   def title_content
     content_for :title do
