@@ -1,7 +1,13 @@
 class PagesController < ApplicationController
   def show
-    @page = Page.find_by(slug: params[:slug], event: event)
+    if(params[:slug])
+      @page = Page.find_by!(slug: params[:slug], event: event)
+    else
+      @page = Page.find_by!(id: params[:id])
+    end
   end
+
+  alias :edit :show
 
   def title_content
     content_for :title do

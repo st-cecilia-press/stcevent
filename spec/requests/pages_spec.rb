@@ -38,16 +38,25 @@ RSpec.describe "GET /:slug", type: :request do
 
     expect(response.body).to include(%r{<h1[^>]*>Here is a Header</h1>})
   end
+
+  it "gets a 404 if the page doesn't exist" do
+    get "/nonexistent"
+
+    expect(response).to have_http_status(:not_found)
+  end
 end
 
-RSpec.describe "GET /events/:event_id/:slug/edit", type: :request do
+RSpec.describe "GET /pages/:page_id/edit", type: :request do
   it "gets the right page with a text box" do
     page = create(:page)
 
-    get "/events/#{page.event_id}/#{page.slug}/edit"
+    get "/pages/#{page.id}/edit"
 
     expect(response).to have_http_status(:success)
-    expect(response.body).to include(%r{<input[^>]*>#{page.title}</input>})
-    expect(response.body).to include(%r{<textarea[^>]*>#{page.body}</input>})
+
+    doc = Nokogiri::HTML(response.body)
+
+    expect(doc.css('input[type="text"][name="page[title]"]').attr('value').value).to eq(page.title)
+    expect(doc.css("textarea").first.text.strip).to eq(page.body.strip)
   end
 end

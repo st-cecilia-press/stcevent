@@ -1,0 +1,8 @@
+<%= form_with model: @page do |form| %>
+  <%= form.label :slug %>
+  <%= form.text_field :slug %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :body %>
+  <%= form.textarea :body %>
+<% end %>

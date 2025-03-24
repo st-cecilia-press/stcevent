@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "/events/:event_id/*slug" => "pages#show"
+  resources :pages
 
+  get "/events/:event_id/*slug" => "pages#show"
   get "/*slug" => "pages#show"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
