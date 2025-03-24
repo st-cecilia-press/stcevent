@@ -47,16 +47,44 @@ RSpec.describe "GET /:slug", type: :request do
 end
 
 RSpec.describe "GET /pages/:page_id/edit", type: :request do
-  it "gets the right page with a text box" do
+  it "can get an edit page" do
     page = create(:page)
 
     get "/pages/#{page.id}/edit"
 
     expect(response).to have_http_status(:success)
+  end
+
+  it "gets the right page with a text box" do
+    page = create(:page)
+
+    get "/pages/#{page.id}/edit"
 
     doc = Nokogiri::HTML(response.body)
 
     expect(doc.css('input[type="text"][name="page[title]"]').attr('value').value).to eq(page.title)
     expect(doc.css("textarea").first.text.strip).to eq(page.body.strip)
+  end
+
+  it "has a submit button" do
+    page = create(:page)
+
+    get "/pages/#{page.id}/edit"
+
+    expect(response.body).to include("submit")
+  end
+end
+
+RSpec.describe "PATCH /pages/:page_id", type: :request do
+  it "can edit the page and redirects to show the page" do
+    page = create(:page)
+
+    patch "/pages/#{page.id}", params: { page: { body: "# new body" } }
+
+    expect(response).to have_http_status(:redirect)
+    expect(response.redirect_url).to match(%r{.*/pages/#{page.id}$})
+
+    page.reload
+    expect(page.body).to eq("# new body")
   end
 end

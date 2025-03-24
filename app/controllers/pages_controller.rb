@@ -3,8 +3,15 @@ class PagesController < ApplicationController
     if(params[:slug])
       @page = Page.find_by!(slug: params[:slug], event: event)
     else
-      @page = Page.find_by!(id: params[:id])
+      @page = Page.find(params[:id])
     end
+  end
+
+  def update
+    page = Page.find(params[:id])
+    page.update(page_params)
+
+    redirect_to page_path(page)
   end
 
   alias :edit :show
@@ -13,6 +20,10 @@ class PagesController < ApplicationController
     content_for :title do
       @page.title
     end
+  end
+
+  def page_params
+    params.expect(page: [:slug, :body, :title])
   end
 
   private
