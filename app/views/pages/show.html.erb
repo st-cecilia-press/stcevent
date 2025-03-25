@@ -1,0 +1,3 @@
+<% title_from(@page) %>
+
+<%== Kramdown::Document.new(@page.body).to_html %>

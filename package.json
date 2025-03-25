@@ -1,0 +1,36 @@
+{
+    "name": "stcevent",
+    "version": "1.0.0",
+    "description": "This is the event website for the Pre-1700s music event St. Cecilia at the Tower.",
+    "homepage": "https://github.com/st-cecilia-press/stcevent#readme",
+    "bugs": {
+        "url": "https://github.com/st-cecilia-press/stcevent/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/st-cecilia-press/stcevent.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "build": "npm run build:css && npm run build:js",
+        "build:css": "sass $* assets/styles:public/styles --style=compressed",
+        "build:js": "npm run lint && npx esbuild \"assets/scripts/**/scripts.js\" --entry-names=[dir]/[name] --outbase=assets/scripts --bundle --minify --outdir=public/scripts $*",
+        "lint": "npx eslint eslint.config.mjs assets/scripts/ ",
+        "lint:fix": "npm run lint -- --fix",
+        "watch:css": "npm run build:css -- --watch",
+        "watch:js": "npm run build:js -- --watch=forever"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.20.0",
+        "esbuild": "^0.25.0",
+        "eslint": "^9.20.1",
+        "globals": "^15.15.0",
+        "sass": "^1.83.4"
+    }
+}

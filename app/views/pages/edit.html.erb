@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<%= form_with model: @page do |form| %>
+  <% if @page.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+        <% @page.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+  <%= form.label :slug, style: "display: block" %>
+  <%= form.text_field :slug %>
+  </div>
+
+  <div>
+  <%= form.label :title, style: "display: block" %>
+  <%= form.text_field :title %>
+  </div>
+
+  <%= form.textarea :body %>
+  <%= form.submit %>
+<% end %>
+
+<script>
+  const easyMDE = new EasyMDE();
+</script>

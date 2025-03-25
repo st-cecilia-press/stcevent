@@ -6,8 +6,9 @@ gem "rails", "~> 8.0.1"
 gem "trilogy", "~> 2.7"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-gem "devise"
+# gem "devise"
 gem "factory_bot_rails"
+gem "kramdown"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -21,6 +22,7 @@ group :development, :test do
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
+  gem "faker"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
