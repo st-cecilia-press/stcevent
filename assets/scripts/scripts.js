@@ -1,1 +1,0 @@
-alert("Va t'en!")
