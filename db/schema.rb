@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_003303) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_011045) do
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
@@ -35,7 +35,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_003303) do
     t.datetime "updated_at", null: false
     t.integer "event_id"
     t.string "slug"
+    t.bigint "menu_item_id"
+    t.integer "menu_order"
+    t.index ["menu_item_id"], name: "index_pages_on_menu_item_id"
   end
 
   add_foreign_key "menu_items", "events"
+  add_foreign_key "pages", "menu_items"
 end

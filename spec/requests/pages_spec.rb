@@ -53,6 +53,19 @@ RSpec.describe "GET /:slug", type: :request do
 
     expect(response.body).to include(menu_item.name)
   end
+
+  it "shows up in the menu when it has a menu item" do
+    page1 = create(:page)
+    menu_item = create(:menu_item, event: page1.event)
+    page1.menu_item = menu_item
+    page1.save
+
+    page2 = create(:page)
+
+    get "/#{page2.slug}"
+    expect(response.body).to include(page1.title)
+    expect(response.body).to include(page1.slug)
+  end
 end
 
 RSpec.describe "GET /pages/:page_id/edit", type: :request do
