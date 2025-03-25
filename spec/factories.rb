@@ -13,4 +13,10 @@ FactoryBot.define do
     event
     slug { Faker::Lorem.word }
   end
+
+  factory :menu_item do
+    order { rand(5) }
+    name { Faker::Lorem.words(number: 2).join(" ").titlecase }
+    event
+  end
 end
