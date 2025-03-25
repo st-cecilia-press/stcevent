@@ -25,14 +25,4 @@ class PagesController < ApplicationController
   def page_params
     params.expect(page: [:slug, :body, :title])
   end
-
-  private
-
-  def event
-    if params[:event_id]
-      Event.find(params[:event_id])
-    else
-      Event.current
-    end
-  end
 end
