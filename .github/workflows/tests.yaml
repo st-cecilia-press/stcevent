@@ -30,7 +30,7 @@ jobs:
           bundler-cache: true
       - name: run linting
         run: bundle exec standardrb
+      - name: set up database
+        run: bundle exec rails db:create
       - name: run tests
         run: bundle exec rspec
-        env: 
-          GHA_TEST: "true"
