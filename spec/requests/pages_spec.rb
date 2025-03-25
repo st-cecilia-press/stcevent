@@ -60,9 +60,10 @@ RSpec.describe "GET /:slug", type: :request do
     page1.menu_item = menu_item
     page1.save
 
-    page2 = create(:page)
+    page2 = create(:page, event: page1.event)
 
     get "/#{page2.slug}"
+
     expect(response.body).to include(page1.title)
     expect(response.body).to include(page1.slug)
   end
