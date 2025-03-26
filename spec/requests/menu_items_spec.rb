@@ -44,6 +44,7 @@ RSpec.describe "/menu_items", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
+      create(:event)
       get new_menu_item_url(as: user)
       expect(response).to be_successful
     end
