@@ -24,6 +24,8 @@ RSpec.describe "/menu_items", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
+  let(:user) { create(:user) }
+
   describe "GET /index" do
     it "renders a successful response" do
       MenuItem.create! valid_attributes
@@ -42,7 +44,7 @@ RSpec.describe "/menu_items", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_menu_item_url
+      get new_menu_item_url(as: user)
       expect(response).to be_successful
     end
   end
