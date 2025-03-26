@@ -8,6 +8,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag "/scripts/scripts.css" %>
+    <%= stylesheet_link_tag "/styles/styles.css" %>
+    <%= javascript_include_tag "/scripts/scripts.js" %>
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -17,13 +21,13 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <link href="/styles/styles.css" rel="stylesheet" />
   </head>
 
   <body>
     <%= render "menu" %>
-    <%= yield %>
+
+    <main class="container" role="main">
+      <%= yield %>
+    </main>
   </body>
-  <script defer src="/scripts/scripts.js"></script>
 </html>

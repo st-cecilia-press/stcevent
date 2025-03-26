@@ -32,5 +32,8 @@
         "eslint": "^9.20.1",
         "globals": "^15.15.0",
         "sass": "^1.83.4"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.3"
     }
 }
