@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get "/events/:event_id/*slug" => "pages#show"
   get "/*slug" => "pages#show"
 
+  root "pages#show", defaults: {slug: "home"}
+
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker

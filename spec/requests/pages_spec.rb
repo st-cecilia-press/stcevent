@@ -1,5 +1,15 @@
 require "rails_helper"
 
+RSpec.describe "GET /", type: :request do
+  it "gets the 'home' page" do
+    page = create(:page, slug: "home")
+
+    get "/"
+
+    expect(response.body).to include(page.title)
+  end
+end
+
 RSpec.describe "GET /:slug", type: :request do
   it "gets the right page" do
     page = create(:page, slug: "testpage")
@@ -21,6 +31,12 @@ RSpec.describe "GET /:slug", type: :request do
 
     it "gets the page for the current event" do
       get "/home"
+
+      expect(response.body).to include("Current Info")
+    end
+
+    it "gets the page for the current event with the root route" do
+      get "/"
 
       expect(response.body).to include("Current Info")
     end
