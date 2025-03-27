@@ -24,7 +24,10 @@
   </head>
 
   <body>
-    <%= render "menu" %>
+    <div class="container">
+        <h1 class="display-1 text-center"><%= @event.title %></h1>
+        <%= render "menu" %>
+    </div>
 
     <main class="container" role="main">
       <%= yield %>
