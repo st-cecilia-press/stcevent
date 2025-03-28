@@ -8,7 +8,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "/scripts/scripts.css" %>
+    <%= # stylesheet_link_tag "/scripts/scripts.css" 
+    %>
     <%= stylesheet_link_tag "/styles/styles.css" %>
     <%= javascript_include_tag "/scripts/scripts.js" %>
 
@@ -25,7 +26,12 @@
 
   <body>
     <div class="container">
+      <div class="d-none d-md-block text-center">
         <h1 class="display-1 text-center"><%= @event.title %></h1>
+        <div class="border-top border-bottom border-5 border-dark" style="background-color: #f2ead6;">
+        <%= image_tag("banner.png")%>
+        </div>
+        </div>
         <%= render "menu" %>
     </div>
 
