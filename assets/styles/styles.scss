@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+@import "../../node_modules/bootstrap/scss/functions";
+
+$display-font-family: "IM Fell English", serif;
+
+$display-font-sizes: (
+    1: 2.5rem,
+    2: 1.5rem,
+    3: 1rem,
+    4: .5rem,
+    5: .25rem,
+    6: .1rem
+);
+
+$font-family-base: "EB Garamond",
+    serif;
+
+$red: #bf281d;
+$red-500: $red;
+$red-600: shade-color($red, 20%);
+$red-700: shade-color($red, 40%);
+$red-800: shade-color($red, 60%);
+$red-900: shade-color($red, 80%);
+
+$white: #fff4eb;
+$body-bg: #fff3de;
+
+$primary: #4a82b3;
+
+
+$navbar-light-color: $white;
+$navbar-light-hover-color: $white;
+$navbar-light-active-color: $white;
+$dropdown-border-radius: 0;
+$dropdown-link-hover-bg: $body-bg;
+
+$dropdown-link-active-color: black;
+$dropdown-link-active-bg: $body-bg;
+
+// Cecilia variables
+$secondary-bg: #EEDEC1;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background-color: #DFCFB4;
+}
+
+.secondary-bg {
+    background-color: $secondary-bg
+}
+
+.main {
+    background-color: $body-bg;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    text-underline-offset: .5rem;
+}
+
+.dropdown-item:hover {
+    text-decoration: underline;
+    text-underline-offset: .25rem;
+}
+
+.footer {
+    color: $white;
+    background-color: #83561b;
+
+    a {
+        color: #ffdc9c;
+    }
+}

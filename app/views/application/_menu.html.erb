@@ -1,12 +1,24 @@
-<ul class="nav navbar-nav">
-  <% MenuItem.where(event: @event).order(:order).each do |menu_item| %>
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" ><%= menu_item.name %><span class="caret"></span></a>
+<nav class="navbar navbar-expand-md" style="background-color: #bf281d" aria-label="Menu" role="navigation" >
 
-    <ul class="dropdown-menu">
-      <% Page.where(menu_item: menu_item).order(:menu_order).each do |page| %>
-        <li><%= link_to page.title, page.slug %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</ul>
+  <div class="container container-fluid">
+    <p class="navbar-brand d-block d-md-none" href="#"><%= @event.title %></p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNav">
+      <ul class="navbar-nav ">
+        <% MenuItem.where(event: @event).order(:order).each do |menu_item| %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><%= menu_item.name %></a>
+            <ul class="dropdown-menu">
+              <% Page.where(menu_item: menu_item).order(:menu_order).each do |page| %>
+                <li><%= link_to page.title, page.slug, class: ["dropdown-item"] %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

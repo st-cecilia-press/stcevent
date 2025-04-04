@@ -8,6 +8,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag "/styles/styles.css" %>
+    <%= javascript_include_tag "/scripts/scripts.js" %>
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -17,13 +20,35 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <link href="/styles/styles.css" rel="stylesheet" />
   </head>
 
-  <body>
-    <%= render "menu" %>
-    <%= yield %>
+  <body >
+    <div class="container d-grid">
+        <div class="row" >
+            <div class="secondary-bg col-lg-2"></div>
+
+            <div class="col-lg-8 px-0 main" >
+                <div class="d-none d-md-block text-center" style="height: 184px;">
+                    <%=image_tag "cecilia.jpg", style: ["float: left"], alt: "St. Cecilia wearing a blue tunic and a red cloak playing the portative organ." %>
+                    <div class="pt-4">
+                      <p class="display-2 mb-1"><%= link_to "The Barony of Cynnabar", "http://cynnabar.org", class: ["link-underline", "link-underline-opacity-0","link-underline-opacity-100-hover"]%> Presents</p>
+                      <h1 class="display-1 mb-0"><%= @event.title %></h1>
+                      <p class="display-2 ">June 14, 2025</p>
+                    </div>
+                </div>
+                <%= render "menu" %>
+
+               <main class="container p-5" role="main">
+                 
+                 <%= yield %>
+               </main>
+               <div class="p-md-5 p-sm-3 mb-0 footer">
+                Contact: <%= link_to "The event stewards", "mailto:cecilia@cynnabar.org" %>
+                </div>
+            </div>
+            <div class="col-lg-2 secondary-bg"></div>
+            </div>
+        </div>
+    </div>
   </body>
-  <script defer src="/scripts/scripts.js"></script>
 </html>
