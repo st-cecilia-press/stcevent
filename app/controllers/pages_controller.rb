@@ -1,20 +1,34 @@
 class PagesController < ApplicationController
-  def show
-    @page = if params[:slug]
-      Page.find_by!(slug: params[:slug], event: event)
+  before_action :set_page, only: %i[show edit update destroy]
+
+  def index
+    @pages = Page.where(event: params.expect(:event_id))
+  end
+
+  def new
+    @page = Page.new
+  end
+
+  # POST /pages
+  def create
+    @page = Page.new(page_params)
+
+    if @page.save
+      redirect_to [event, @page], notice: "Page was successfully created."
     else
-      Page.find(params[:id])
+      render :new, status: :unprocessable_entity
     end
   end
 
+  # PATCH/PUT /pages/1
   def update
-    page = Page.find(params[:id])
-    page.update(page_params)
-
-    redirect_to page_path(page)
+    Page.find(params[:id])
+    if @page.update(page_params)
+      redirect_to [event, @page], notice: "Page was successfully updated.", status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
-
-  alias_method :edit, :show
 
   def title_content
     content_for :title do
@@ -22,7 +36,23 @@ class PagesController < ApplicationController
     end
   end
 
+  # DELETE /pages/1
+  def destroy
+    @page.destroy!
+    redirect_to event_pages_path(event), notice: "Page was successfully destroyed.", status: :see_other
+  end
+
+  private
+
   def page_params
-    params.expect(page: [:slug, :body, :title])
+    params.expect(page: [:slug, :body, :title]).merge(event: event)
+  end
+
+  def set_page
+    @page = if params[:slug]
+      Page.find_by!(slug: params[:slug], event: event)
+    else
+      Page.find(params.expect(:id))
+    end
   end
 end

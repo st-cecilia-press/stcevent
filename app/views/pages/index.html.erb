@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Pages" %>
+
+<h1>Pages</h1>
+
+<div id="pages">
+  <ul>
+  <% @pages.each do |page| %>
+    <li>
+      <tt> <tt><%= link_to page.slug, event_page_path(page.event, page) %></tt>: <%= page.title %> 
+            (<%= link_to 'Edit', edit_event_page_path(page.event, page) %>)
+            (<%= button_to 'Delete', [page.event, page], method: :delete %>)
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<%= link_to "New page", new_event_page_path(@event) %>
