@@ -21,13 +21,18 @@ Rails.application.routes.draw do
     resources :menu_items
     resources :events do
       resources :pages
+      resources :activities
     end
   end
 
   # these are public
   get "/events/:event_id/*slug" => "pages#show"
-  get "/*slug" => "pages#show"
+  get "/events/:event_id/activities" => "activities#index"
+  get "/events/:event_id/activities/:activity_id" => "activities#show"
 
+  # uses "current" event
+  get "/*slug" => "pages#show"
+  get "/activities" => "activities#index"
   root "pages#show", defaults: {slug: "home"}
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
