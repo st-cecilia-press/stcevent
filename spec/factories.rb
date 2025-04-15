@@ -11,7 +11,7 @@ FactoryBot.define do
     title { Faker::Lorem.words(number: 4).join(" ").titlecase }
     body { Faker::Markdown.sandwich(sentences: 6) }
     event
-    slug { Faker::Lorem.word }
+    slug { Faker::Creature::Animal.name.downcase }
   end
 
   factory :menu_item do
