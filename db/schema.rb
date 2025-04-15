@@ -11,6 +11,58 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "title",               limit: 255
+    t.integer  "difficulty_id",       limit: 4
+    t.text     "description",         limit: 65535
+    t.integer  "event_id",            limit: 4
+    t.datetime "start_time"
+    t.integer  "classroom_id",        limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "activity_type_id",    limit: 4
+    t.integer  "activity_subtype_id", limit: 4
+    t.integer  "duration",            limit: 4
+  end
+
+  add_index "activities", ["activity_subtype_id"], name: "index_activities_on_activity_subtype_id", using: :btree
+  add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
+  add_index "activities", ["classroom_id"], name: "index_activities_on_classroom_id", using: :btree
+  add_index "activities", ["difficulty_id"], name: "index_activities_on_difficulty_id", using: :btree
+  add_index "activities", ["event_id"], name: "index_activities_on_event_id", using: :btree
+
+  create_table "activity_subtypes", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "activity_types", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "classrooms", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.integer  "event_id",    limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "classrooms", ["event_id"], name: "index_classrooms_on_event_id", using: :btree
+
+  create_table "difficulties", force: :cascade do |t|
+    t.integer  "level",       limit: 4
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
