@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   # resources are protected
   constraints Clearance::Constraints::SignedIn.new do
     resources :menu_items
-    resources :pages
+    resources :events do
+      resources :pages
+    end
   end
 
   # these are public
