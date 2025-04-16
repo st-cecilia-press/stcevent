@@ -52,7 +52,7 @@ class PagesController < ApplicationController
     @page = if params[:slug]
       Page.find_by!(slug: params[:slug], event: event)
     else
-      Page.find(params.expect(:id))
+      Page.find_by!(event: event, id: params.expect(:id))
     end
   end
 end

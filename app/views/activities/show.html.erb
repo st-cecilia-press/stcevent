@@ -1,0 +1,5 @@
+<% title_from(@activity) %>
+
+<h1><%= @activity.title %></h1>
+
+<%== Kramdown::Document.new(@activity.description).to_html %>
