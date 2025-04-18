@@ -1,9 +1,9 @@
 class Activity < ActiveRecord::Base
-  belongs_to :difficulty
+  belongs_to :difficulty, optional: true
   belongs_to :event
   belongs_to :classroom, optional: true
-  belongs_to :activity_type
-  belongs_to :activity_subtype
+  belongs_to :activity_type, optional: true
+  belongs_to :activity_subtype, optional: true
   #  has_many :teachers, dependent: :destroy
   #  has_many :users, through: :teachers
 
