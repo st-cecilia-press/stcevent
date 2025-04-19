@@ -51,10 +51,6 @@ FactoryBot.define do
     title { Faker::Lorem.words(number: 4).join(" ").titlecase }
     description { Faker::Markdown.sandwich }
     duration { Faker::Number.within(range: 30..120) }
-    activity_type
-    activity_subtype
-    classroom
-    difficulty
     event
   end
 

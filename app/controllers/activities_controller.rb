@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
   end
 
   def index
-    @activities = Activity.where(event: params.expect(:event_id))
+    @activities = Activity.where(event: event)
   end
 
   def new

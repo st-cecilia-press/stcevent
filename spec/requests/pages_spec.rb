@@ -145,7 +145,6 @@ RSpec.describe "/event/1/pages", type: :request do
       menu = create(:menu, event: page.event)
       menu_item = create(:menu_item, menu: menu)
 
-
       get "/#{page.slug}"
 
       expect(response.body).to include(menu_item.name)
