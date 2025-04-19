@@ -10,7 +10,7 @@ RSpec.describe "people", type: :request do
       get person_url(person)
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("<title>#{person.title}</title>")
+      expect(response.body).to include_escaped(person.name)
     end
 
     it "converts markdown to html as expected" do
@@ -19,6 +19,17 @@ RSpec.describe "people", type: :request do
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include(%r{<h1[^>]*>My life</h1>})
+    end
+
+    it "shows activities associated with the person" do
+      activity1 = create(:activity)
+      activity2 = create(:activity)
+      person = create(:person, activities: [activity1, activity2])
+
+      get person_url(person)
+
+      expect(response.body).to include_escaped(activity1.title)
+      expect(response.body).to include_escaped(activity2.title)
     end
   end
   describe "GET /people" do
@@ -29,8 +40,8 @@ RSpec.describe "people", type: :request do
       get people_url
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include(ERB::Util::html_escape(person1.name))
-      expect(response.body).to include(ERB::Util::html_escape(person2.name))
+      expect(response.body).to include_escaped(person1.name)
+      expect(response.body).to include_escaped(person2.name)
     end
     it "only shows edit and delete buttons if you are signed in"
   end
@@ -117,5 +128,8 @@ RSpec.describe "people", type: :request do
       delete person_url(person, as: user)
       expect(response).to redirect_to(people_url)
     end
+
+    it "destroys associated facilitations"
+    it "does not destroy associated activities"
   end
 end

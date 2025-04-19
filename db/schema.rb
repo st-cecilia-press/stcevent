@@ -108,15 +108,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.datetime "updated_at",            null: false
   end
 
-  create_table "facilitators", force: :cascade do |t|
+  create_table "facilitations", force: :cascade do |t|
     t.bigint  "person_id"
     t.bigint  "activity_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
 
-  add_index "facilitators", ["activity_id"], name: "index_facilitators_on_activity_id", using: :btree
-  add_index "facilitators", ["person_id"], name: "index_facilitators_on_person_id", using: :btree
+  add_index "facilitations", ["activity_id"], name: "index_facilitations_on_activity_id", using: :btree
+  add_index "facilitations", ["person_id"], name: "index_facilitations_on_person_id", using: :btree
 
   add_foreign_key "activities", "activity_subtypes"
   add_foreign_key "activities", "activity_types"
@@ -126,6 +126,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
   add_foreign_key "classrooms", "events"
   add_foreign_key "menu_items", "events"
   add_foreign_key "pages", "menu_items"
-  add_foreign_key "facilitators", "activities"
-  add_foreign_key "facilitators", "people"
+  add_foreign_key "facilitations", "activities"
+  add_foreign_key "facilitations", "people"
 end

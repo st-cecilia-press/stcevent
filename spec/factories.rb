@@ -49,7 +49,6 @@ FactoryBot.define do
     classroom
     difficulty
     event
-    #  after(:build){ |activity| activity.teachers << FactoryBot.create(:teacher, activity: activity) }
   end
 
   factory :person do

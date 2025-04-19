@@ -2,4 +2,16 @@
 
 <h1><%= @person.name %></h1>
 
-<%== Kramdown::Document.new(@person.bio).to_html %>
+<% if @person.activities.any? %>
+  <h2>Activities Facilitated</h2>
+  <ul>
+  <% @person.activities.each do |activity| %>
+    <li><%= link_to activity.title, [activity.event, activity] %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<% if @person.bio.present? %>
+  <h2>Biography</h2>
+  <%== Kramdown::Document.new(@person.bio).to_html %>
+<% end %>

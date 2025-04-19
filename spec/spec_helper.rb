@@ -91,3 +91,7 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
   config.before(:each, type: :request) { create(:event, start_date: Date.today.last_year) }
 end
+
+def include_escaped(text)
+  include(ERB::Util.html_escape(text))
+end

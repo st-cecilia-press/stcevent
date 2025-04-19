@@ -32,6 +32,17 @@ RSpec.describe "/events/:event_id/activities", type: :request do
 
       expect(response).to have_http_status(:not_found)
     end
+
+    it "shows people associated with the activity" do
+      person1 = create(:person)
+      person2 = create(:person)
+      activity = create(:activity, people: [person1, person2])
+
+      get event_activity_url(activity.event, activity)
+
+      expect(response.body).to include_escaped(person1.name)
+      expect(response.body).to include_escaped(person2.name)
+    end
   end
   describe "GET /events/:event_id/activities" do
     it "can show all activities for the given event" do
@@ -124,5 +135,8 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       delete event_activity_url(activity.event, activity, as: user)
       expect(response).to redirect_to(event_activities_url(activity.event))
     end
+
+    it "destroys associated facilitations"
+    it "does not destroy associated activities"
   end
 end

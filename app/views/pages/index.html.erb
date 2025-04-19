@@ -8,7 +8,7 @@
   <ul>
   <% @pages.each do |page| %>
     <li>
-      <tt><%= link_to page.slug, event_page_path(page.event, page) %></tt>: <%= page.title %> 
+      <tt><%= link_to page.slug, [page.event, page] %></tt>: <%= page.title %> 
             (<%= link_to 'Edit', edit_event_page_path(page.event, page) %>)
             <%= button_to 'Delete', [page.event, page], method: :delete, class: "btn btn-danger" %>
     </li>
