@@ -89,4 +89,9 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.before(:each, type: :request) { create(:event, start_date: Date.today.last_year) }
+end
+
+def include_escaped(text)
+  include(ERB::Util.html_escape(text))
 end

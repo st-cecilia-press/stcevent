@@ -19,15 +19,26 @@ Rails.application.routes.draw do
   # resources are protected
   constraints Clearance::Constraints::SignedIn.new do
     resources :menu_items
-    resources :events do
+    resources :events, except: [:show, :index] do
       resources :pages
+      resources :activities, except: [:show, :index]
     end
+
+    resources :people, except: [:show, :index]
   end
 
   # these are public
-  get "/events/:event_id/*slug" => "pages#show"
-  get "/*slug" => "pages#show"
 
+  resources :events, only: [:show, :index] do
+    resources :activities, only: [:show, :index]
+  end
+
+  get "/events/:event_id/*slug" => "pages#show"
+  resources :people, only: [:show, :index]
+
+  # uses "current" event
+  get "/activities" => "activities#index"
+  get "/*slug" => "pages#show"
   root "pages#show", defaults: {slug: "home"}
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

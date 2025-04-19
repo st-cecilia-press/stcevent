@@ -40,7 +40,7 @@ RSpec.describe "/event/1/pages", type: :request do
     end
   end
 
-  describe "POST /create" do
+  describe "POST /events/:event_id/pages" do
     let(:event) { create(:event) }
 
     context "with valid parameters" do
@@ -224,7 +224,7 @@ RSpec.describe "/event/1/pages", type: :request do
     it "redirects to the pages list" do
       page = create(:page)
       delete event_page_url(page.event, page, as: user)
-      expect(response).to redirect_to(event_pages_url)
+      expect(response).to redirect_to(event_pages_url(page.event))
     end
   end
 end

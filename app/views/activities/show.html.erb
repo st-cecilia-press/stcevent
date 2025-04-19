@@ -1,0 +1,9 @@
+<% title_from(@activity) %>
+
+<h1><%= @activity.title %></h1>
+
+<% @activity.people.each do |person| %>
+  <h2><%= link_to person.name, person %></h2>
+<% end %>
+
+<%== Kramdown::Document.new(@activity.description).to_html %>

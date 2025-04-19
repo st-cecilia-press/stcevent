@@ -51,3 +51,4 @@
 .cache
 .*_history
 **/*.sw?
+db/*sql

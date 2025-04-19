@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<%= form_with model: [@person] do |form| %>
+  <% if @person.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+        <% @person.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>Use the name by which the person should be listed in the event program.
+  This will usually be the SCA name. It should also include the title the
+  person wishes to use.</p>
+  <div>
+  <%= form.label :name, style: "display: block" %>
+  <%= form.text_field :name %>
+  </div>
+
+  <%= form.textarea :bio %>
+  <%= form.submit %>
+<% end %>
+
+<script>
+  const easyMDE = new EasyMDE();
+</script>
