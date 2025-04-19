@@ -13,15 +13,15 @@
 ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
   create_table "activities", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.integer "difficulty_id"
+    t.bigint "difficulty_id"
     t.text "description"
-    t.integer "event_id"
+    t.bigint "event_id"
     t.datetime "start_time"
-    t.integer "classroom_id"
+    t.bigint "classroom_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "activity_type_id"
-    t.integer "activity_subtype_id"
+    t.bigint "activity_type_id"
+    t.bigint "activity_subtype_id"
     t.integer "duration"
     t.index ["activity_subtype_id"], name: "index_activities_on_activity_subtype_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
   create_table "classrooms", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "event_id"
+    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_classrooms_on_event_id"
@@ -82,7 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.text "body", size: :long
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "event_id"
+    t.bigint "event_id"
     t.string "slug"
     t.bigint "menu_item_id"
     t.integer "menu_order"
@@ -101,6 +101,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
+  create_table "people", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.string "sca_name"
+    t.text "bio"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "facilitators", force: :cascade do |t|
+    t.bigint  "person_id"
+    t.bigint  "activity_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "facilitators", ["activity_id"], name: "index_facilitators_on_activity_id", using: :btree
+  add_index "facilitators", ["person_id"], name: "index_facilitators_on_person_id", using: :btree
+
+  add_foreign_key "activities", "activity_subtypes"
+  add_foreign_key "activities", "activity_types"
+  add_foreign_key "activities", "classrooms"
+  add_foreign_key "activities", "difficulties"
+  add_foreign_key "activities", "events"
+  add_foreign_key "classrooms", "events"
   add_foreign_key "menu_items", "events"
   add_foreign_key "pages", "menu_items"
+  add_foreign_key "facilitators", "activities"
+  add_foreign_key "facilitators", "people"
 end
