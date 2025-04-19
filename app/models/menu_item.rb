@@ -1,5 +1,3 @@
 class MenuItem < ApplicationRecord
-  belongs_to :event
-
-  has_many :pages
+  belongs_to :menu
 end

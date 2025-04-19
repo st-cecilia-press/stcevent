@@ -14,10 +14,17 @@ FactoryBot.define do
     slug { Faker::Internet.slug }
   end
 
-  factory :menu_item do
+  factory :menu do
     order { rand(5) }
     name { Faker::Lorem.words(number: 2).join(" ").titlecase }
     event
+  end
+
+  factory :menu_item do
+    order { rand(5) }
+    name { Faker::Lorem.words(number: 2).join(" ").titlecase }
+    url { "/" + Faker::Internet.slug }
+    menu
   end
 
   factory :classroom do

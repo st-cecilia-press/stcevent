@@ -132,25 +132,24 @@ RSpec.describe "/event/1/pages", type: :request do
 
     it "shows the menu for the event" do
       page = create(:page)
-      menu_item = create(:menu_item, event: page.event)
+      menu = create(:menu, event: page.event)
+
+      get "/#{page.slug}"
+
+      expect(response.body).to include(menu.name)
+    end
+
+    # TODO move to menu_item request spec
+    it "shows up in the menu" do
+      page = create(:page)
+      menu = create(:menu, event: page.event)
+      menu_item = create(:menu_item, menu: menu)
+
 
       get "/#{page.slug}"
 
       expect(response.body).to include(menu_item.name)
-    end
-
-    it "shows up in the menu when it has a menu item" do
-      page1 = create(:page)
-      menu_item = create(:menu_item, event: page1.event)
-      page1.menu_item = menu_item
-      page1.save
-
-      page2 = create(:page, event: page1.event)
-
-      get "/#{page2.slug}"
-
-      expect(response.body).to include(page1.title)
-      expect(response.body).to include(page1.slug)
+      expect(response.body).to include(menu_item.url)
     end
   end
 

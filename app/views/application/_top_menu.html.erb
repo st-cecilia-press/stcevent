@@ -9,12 +9,12 @@
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarNav">
       <ul class="navbar-nav ">
         <li class="nav-item"><%= link_to "Home", "/", class: ["nav-link"] %>
-        <% MenuItem.where(event: @event).order(:order).each do |menu_item| %>
+        <% Menu.where(event: @event).order(:order).each do |menu| %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><%= menu_item.name %></a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><%= menu.name %></a>
             <ul class="dropdown-menu">
-              <% Page.where(menu_item: menu_item).order(:menu_order).each do |page| %>
-                <li><%= link_to page.title, "/" + page.slug, class: ["dropdown-item"] %></li>
+              <% menu.menu_items.order(:order).each do |menu_item| %>
+                <li><%= link_to menu_item.name, menu_item.url, class: ["dropdown-item"] %></li>
               <% end %>
             </ul>
           </li>

@@ -68,13 +68,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "menu_items", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "menus", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "order"
-    t.text "name"
+    t.string "name"
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_menu_items_on_event_id"
+    t.index ["event_id"], name: "index_menus_on_event_id"
+  end
+
+  create_table "menu_items", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.integer "order"
+    t.string "name"
+    t.string "url"
+    t.bigint "menu_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id"
   end
 
   create_table "pages", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -124,7 +134,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
   add_foreign_key "activities", "difficulties"
   add_foreign_key "activities", "events"
   add_foreign_key "classrooms", "events"
-  add_foreign_key "menu_items", "events"
+  add_foreign_key "menus", "events"
+  add_foreign_key "menu_items", "menus"
   add_foreign_key "pages", "menu_items"
   add_foreign_key "facilitations", "activities"
   add_foreign_key "facilitations", "people"
