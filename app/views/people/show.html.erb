@@ -1,0 +1,5 @@
+<% title_from(@person) %>
+
+<h1><%= @person.name %></h1>
+
+<%== Kramdown::Document.new(@person.bio).to_html %>

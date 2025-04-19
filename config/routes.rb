@@ -19,16 +19,22 @@ Rails.application.routes.draw do
   # resources are protected
   constraints Clearance::Constraints::SignedIn.new do
     resources :menu_items
-    resources :events do
+    resources :events, except: [:show, :index] do
       resources :pages
-      resources :activities
+      resources :activities, except: [:show, :index]
     end
+
+    resources :people, except: [:show, :index]
   end
 
   # these are public
-  get "/events/:event_id/activities" => "activities#index"
-  get "/events/:event_id/activities/:id" => "activities#show"
+
+  resources :events, only: [:show, :index] do
+    resources :activities, only: [:show, :index]
+  end
+
   get "/events/:event_id/*slug" => "pages#show"
+  resources :people, only: [:show, :index]
 
   # uses "current" event
   get "/activities" => "activities#index"

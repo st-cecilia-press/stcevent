@@ -51,4 +51,9 @@ FactoryBot.define do
     event
     #  after(:build){ |activity| activity.teachers << FactoryBot.create(:teacher, activity: activity) }
   end
+
+  factory :person do
+    name { Faker::Name.name }
+    bio { Faker::Markdown.sandwich }
+  end
 end
