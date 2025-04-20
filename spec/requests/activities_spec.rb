@@ -33,10 +33,10 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    it "shows people associated with the activity" do
+    it "shows facilitators associated with the activity" do
       person1 = create(:person)
       person2 = create(:person)
-      activity = create(:activity, people: [person1, person2])
+      activity = create(:activity, facilitators: [person1, person2])
 
       get event_activity_url(activity.event, activity)
 
@@ -122,6 +122,9 @@ RSpec.describe "/events/:event_id/activities", type: :request do
 
       expect(response).to have_http_status(:not_found)
     end
+
+    it "can choose a person to add a facilitation"
+    it "can add an additional person"
   end
   describe "PATCH /activities/:activity_id" do
     it "can edit the activity and redirects to show the activity" do
