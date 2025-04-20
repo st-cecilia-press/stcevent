@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  has_many :menu_items
+  has_many :menus
 
   validates :title, :start_date, :end_date, presence: true
 

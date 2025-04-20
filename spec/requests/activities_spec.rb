@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "/events/:event_id/activities", type: :request do
   let(:user) { create(:user) }
   let(:event) { create(:event) }
-  it "/activities should list activities for current event"
+
   it "/activities/:activity_id should use current event"
 
   describe "GET /events/:event_id/activities/:activity_id" do
@@ -44,19 +44,34 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response.body).to include_escaped(person2.name)
     end
   end
-  describe "GET /events/:event_id/activities" do
-    it "can show all activities for the given event" do
+
+  describe "activities index" do
+    def index_test(url)
       activity1 = create(:activity, event: event)
       activity2 = create(:activity, event: event)
 
-      get event_activities_url(event)
+      get url
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include(activity1.title)
       expect(response.body).to include(activity2.title)
     end
+
+    it "works for /event/:event_id/activities" do
+      index_test(event_activities_url(event))
+    end
+
+    it "works for /activities" do
+      index_test("/activities")
+    end
+
+    it "works for /classes" do
+      index_test("/classes")
+    end
+
     it "only shows edit and delete buttons if you are signed in"
   end
+
   describe "POST /events/:event_id/activities" do
     it "can create a new Activity" do
       expect {

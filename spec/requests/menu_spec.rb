@@ -12,15 +12,15 @@ require "rails_helper"
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/menu_items", type: :request do
+RSpec.describe "/menus", type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # MenuItem. As you add validations to MenuItem, be sure to
+  # Menu. As you add validations to MenuItem, be sure to
   # adjust the attributes here as well.
 
   let(:user) { create(:user) }
   let(:event) { create(:event) }
   let(:valid_attributes) {
-    attributes_for(:menu_item, event_id: event.id)
+    attributes_for(:menu, event_id: event.id)
   }
 
   let(:invalid_attributes) {
@@ -31,16 +31,16 @@ RSpec.describe "/menu_items", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      MenuItem.create! valid_attributes
-      get menu_items_url(as: user)
+      Menu.create! valid_attributes
+      get menus_url(as: user)
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      menu_item = MenuItem.create! valid_attributes
-      get menu_item_url(menu_item, as: user)
+      menu = Menu.create! valid_attributes
+      get menu_url(menu, as: user)
       expect(response).to be_successful
     end
   end
@@ -48,42 +48,42 @@ RSpec.describe "/menu_items", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       create(:event)
-      get new_menu_item_url(as: user)
+      get new_menu_url(as: user)
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      menu_item = MenuItem.create! valid_attributes
-      get edit_menu_item_url(menu_item, as: user)
+      menu = Menu.create! valid_attributes
+      get edit_menu_url(menu, as: user)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new MenuItem" do
+      it "creates a new Menu" do
         expect {
-          post menu_items_url(as: user), params: {menu_item: valid_attributes}
-        }.to change(MenuItem, :count).by(1)
+          post menus_url(as: user), params: {menu: valid_attributes}
+        }.to change(Menu, :count).by(1)
       end
 
-      it "redirects to the created menu_item" do
-        post menu_items_url(as: user), params: {menu_item: valid_attributes}
-        expect(response).to redirect_to(menu_item_url(MenuItem.last))
+      it "redirects to the created menu" do
+        post menus_url(as: user), params: {menu: valid_attributes}
+        expect(response).to redirect_to(menu_url(Menu.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new MenuItem" do
+      it "does not create a new Menu" do
         expect {
-          post menu_items_url(as: user), params: {menu_item: invalid_attributes}
-        }.to change(MenuItem, :count).by(0)
+          post menus_url(as: user), params: {menu: invalid_attributes}
+        }.to change(Menu, :count).by(0)
       end
 
       xit "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post menu_items_url(as: user), params: {menu_item: invalid_attributes}
+        post menus_url(as: user), params: {menu: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -95,42 +95,42 @@ RSpec.describe "/menu_items", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested menu_item" do
-        menu_item = MenuItem.create! valid_attributes
-        patch menu_item_url(menu_item, as: user), params: {menu_item: new_attributes}
-        menu_item.reload
+      it "updates the requested menu" do
+        menu = Menu.create! valid_attributes
+        patch menu_url(menu, as: user), params: {menu: new_attributes}
+        menu.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the menu_item" do
-        menu_item = MenuItem.create! valid_attributes
-        patch menu_item_url(menu_item, as: user), params: {menu_item: new_attributes}
-        menu_item.reload
-        expect(response).to redirect_to(menu_item_url(menu_item))
+      it "redirects to the menu" do
+        menu = Menu.create! valid_attributes
+        patch menu_url(menu, as: user), params: {menu: new_attributes}
+        menu.reload
+        expect(response).to redirect_to(menu_url(menu))
       end
     end
 
     context "with invalid parameters" do
       xit "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        menu_item = MenuItem.create! valid_attributes
-        patch menu_item_url(menu_item, as: user), params: {menu_item: invalid_attributes}
+        menu = Menu.create! valid_attributes
+        patch menu_url(menu, as: user), params: {menu: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested menu_item" do
-      menu_item = MenuItem.create! valid_attributes
+    it "destroys the requested menu" do
+      menu = Menu.create! valid_attributes
       expect {
-        delete menu_item_url(menu_item, as: user)
-      }.to change(MenuItem, :count).by(-1)
+        delete menu_url(menu, as: user)
+      }.to change(Menu, :count).by(-1)
     end
 
-    it "redirects to the menu_items list" do
-      menu_item = MenuItem.create! valid_attributes
-      delete menu_item_url(menu_item, as: user)
-      expect(response).to redirect_to(menu_items_url)
+    it "redirects to the menus list" do
+      menu = Menu.create! valid_attributes
+      delete menu_url(menu, as: user)
+      expect(response).to redirect_to(menus_url)
     end
   end
 end

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # resources are protected
   constraints Clearance::Constraints::SignedIn.new do
-    resources :menu_items
+    resources :menus
     resources :events, except: [:show, :index] do
       resources :pages
       resources :activities, except: [:show, :index]
@@ -35,9 +35,11 @@ Rails.application.routes.draw do
 
   get "/events/:event_id/*slug" => "pages#show"
   resources :people, only: [:show, :index]
+  get "/teachers" => "people#index"
 
   # uses "current" event
   get "/activities" => "activities#index"
+  get "/classes" => "activities#index"
   get "/*slug" => "pages#show"
   root "pages#show", defaults: {slug: "home"}
 
