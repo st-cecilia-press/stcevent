@@ -25,7 +25,6 @@ class ActivitiesController < ApplicationController
   end
 
   def update
-    Activity.find(params[:id])
     if @activity.update(activity_params)
       redirect_to [event, @activity], notice: "Activity was successfully updated.", status: :see_other
     else
@@ -41,7 +40,18 @@ class ActivitiesController < ApplicationController
   private
 
   def activity_params
-    params.expect(activity: [:title, :duration, :description, :classroom_id, :activity_type_id, :activity_subtype_id, :difficulty_id]).merge(event: event)
+    params.expect(
+      activity: [
+        :title,
+        :duration,
+        :description,
+        :classroom_id,
+        :activity_type_id,
+        :activity_subtype_id,
+        :difficulty_id,
+        facilitator_ids: []
+      ]
+    ).merge(event: event)
   end
 
   def set_activity

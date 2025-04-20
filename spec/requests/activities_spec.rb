@@ -138,6 +138,28 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       activity.reload
       expect(activity.description).to eq("new description")
     end
+
+    it "can add a facilitator" do
+      activity = create(:activity)
+      person = create(:person)
+
+      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: [person.id]}}
+
+      expect(response).to have_http_status(:redirect)
+      activity.reload
+      expect(activity.facilitators.first).to eq(person)
+    end
+
+    it "can add several facilitators" do
+      activity = create(:activity)
+      people = create_list(:person, 3)
+
+      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: people.map(&:id) }}
+
+      expect(response).to have_http_status(:redirect)
+      activity.reload
+      expect(activity.facilitators).to contain_exactly(*people)
+    end
   end
 
   describe "DELETE /destroy" do
