@@ -43,7 +43,7 @@ module Seeds
   # add some people & activities
   10.times do
     person = create(:person)
-    create(:activity, people: [person], event: event)
+    create(:activity, facilitators: [person], event: event)
   end
 
   # Archives - TODO

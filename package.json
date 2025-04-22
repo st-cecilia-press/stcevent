@@ -34,7 +34,6 @@
         "sass": "^1.83.4"
     },
     "dependencies": {
-        "bootstrap": "^5.3.3",
-        "use-bootstrap-select": "^2.2.1"
+        "bootstrap": "^5.3.3"
     }
 }

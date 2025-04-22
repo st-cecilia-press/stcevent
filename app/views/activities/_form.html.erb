@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.2.1/dist/use-bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.2.1/dist/use-bootstrap-select.min.js"></script>
 
 <%= form_with model: [@event, @activity] do |form| %>
   <% if @activity.errors.any? %>
@@ -20,7 +22,7 @@
   </div>
 
   <div>
-    <%= form.select :facilitaors, Person.all.
+    <%= form.collection_select :facilitator_ids, Person.order(:name), :id, :name, {},{class: "form-select", data: {searchable: true}, multiple: true} %>
   </div>
 
   <div>
@@ -34,4 +36,5 @@
 
 <script>
   const easyMDE = new EasyMDE();
+  new UseBootstrapSelect(document.getElementById('activity_facilitator_ids'));
 </script>
