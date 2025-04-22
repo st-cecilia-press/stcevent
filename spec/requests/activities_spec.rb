@@ -16,6 +16,13 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response.body).to include("<title>#{activity.title}</title>")
     end
 
+    it "has an edit link when logged in" do
+      activity = create(:activity, event: create(:event))
+
+      get event_activity_url(activity.event, activity, as: user)
+
+      expect(response.body).to include(edit_event_activity_path(activity.event, activity))
+    end
     it "converts markdown to html as expected" do
       activity = create(:activity, description: "# Here is a Header")
       get event_activity_url(activity.event, activity)
@@ -154,7 +161,7 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       activity = create(:activity)
       people = create_list(:person, 3)
 
-      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: people.map(&:id) }}
+      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: people.map(&:id)}}
 
       expect(response).to have_http_status(:redirect)
       activity.reload
