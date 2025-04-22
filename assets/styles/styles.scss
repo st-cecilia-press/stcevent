@@ -24,6 +24,7 @@ $red-900: shade-color($red, 80%);
 
 $white: #fff4eb;
 $body-bg: #fff3de;
+$border-color: black;
 
 $primary: #4a82b3;
 
@@ -71,4 +72,31 @@ body {
     a {
         color: #ffdc9c;
     }
+}
+
+.form-control {
+    background-color: white;
+}
+
+.form-select,
+.dropdown-menu {
+    background-color: white !important;
+}
+
+.use-bootstrap-select .text-bg-secondary {
+    background-color: $white !important;
+    border: 1px solid black !important;
+}
+
+
+.editor-toolbar,
+.editor-statusbar,
+.CodeMirror {
+    border-color: black !important;
+    color: black !important
+}
+
+.editor-toolbar {
+    background-color: $white;
+
 }

@@ -16,21 +16,25 @@
     </div>
   <% end %>
 
-  <div>
-  <%= form.label :title, style: "display: block" %>
-  <%= form.text_field :title %>
+  <div class="form-group">
+  <%= form.label :title %>
+  <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
+  <%= form.label "Teachers" %>
     <%= form.collection_select :facilitator_ids, Person.order(:name), :id, :name, {},{class: "form-select", data: {searchable: true}, multiple: true} %>
   </div>
 
-  <div>
-  <%= form.label :duration, style: "display: block" %>
-  <%= form.text_field :duration %>
+  <div class="form-group">
+  <%= form.label :duration %>
+  <%= form.text_field :duration, class: "form-control" %>
   </div>
 
-  <%= form.textarea :description %>
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.textarea :description %>
+  </div>
   <%= form.submit %>
 <% end %>
 
