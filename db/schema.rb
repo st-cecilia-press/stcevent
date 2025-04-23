@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
-  create_table "activities", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_221400) do
+  create_table "activities", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "title"
-    t.bigint "difficulty_id"
+    t.integer "difficulty_id"
     t.text "description"
-    t.bigint "event_id"
-    t.datetime "start_time"
-    t.bigint "classroom_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "activity_type_id"
-    t.bigint "activity_subtype_id"
+    t.integer "event_id"
+    t.datetime "start_time", precision: nil
+    t.integer "classroom_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.integer "activity_type_id"
+    t.integer "activity_subtype_id"
     t.integer "duration"
     t.index ["activity_subtype_id"], name: "index_activities_on_activity_subtype_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
@@ -30,73 +30,111 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.index ["event_id"], name: "index_activities_on_event_id"
   end
 
-  create_table "activity_subtypes", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "activity_subtypes", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "activity_types", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "activity_types", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "classrooms", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "classrooms", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "event_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event_id"], name: "index_classrooms_on_event_id"
   end
 
-  create_table "difficulties", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "difficulties", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "level"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "events", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+  create_table "events", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "menus", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.integer "order"
-    t.string "name"
-    t.bigint "event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_menus_on_event_id"
+  create_table "facilitations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.bigint "person_id"
+    t.integer "activity_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["activity_id"], name: "index_facilitations_on_activity_id"
+    t.index ["person_id"], name: "index_facilitations_on_person_id"
   end
 
   create_table "menu_items", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "order"
     t.string "name"
     t.string "url"
-    t.bigint "menu_id", null: false
+    t.bigint "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["menu_id"], name: "index_menu_items_on_menu_id"
   end
 
-  create_table "pages", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "title"
-    t.text "body", size: :long
+  create_table "menus", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.integer "order"
+    t.string "name"
+    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "event_id"
+    t.index ["event_id"], name: "index_menus_on_event_id"
+  end
+
+  create_table "pages", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.string "title"
+    t.text "body", size: :long
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.integer "event_id"
     t.string "slug"
-    t.bigint "menu_item_id"
-    t.integer "menu_order"
-    t.index ["menu_item_id"], name: "index_pages_on_menu_item_id"
+    t.index ["event_id"], name: "index_pages_on_event_id"
+  end
+
+  create_table "people", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "staff_members", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.integer "event_id"
+    t.bigint "person_id"
+    t.integer "staff_role_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["event_id"], name: "index_staff_members_on_event_id"
+    t.index ["person_id"], name: "index_staff_members_on_person_id"
+    t.index ["staff_role_id"], name: "index_staff_members_on_staff_role_id"
+  end
+
+  create_table "staff_roles", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "titles", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -111,32 +149,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_231932) do
     t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
-  create_table "people", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.text "bio"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  create_table "facilitations", force: :cascade do |t|
-    t.bigint  "person_id"
-    t.bigint  "activity_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  add_index "facilitations", ["activity_id"], name: "index_facilitations_on_activity_id", using: :btree
-  add_index "facilitations", ["person_id"], name: "index_facilitations_on_person_id", using: :btree
-
   add_foreign_key "activities", "activity_subtypes"
   add_foreign_key "activities", "activity_types"
   add_foreign_key "activities", "classrooms"
   add_foreign_key "activities", "difficulties"
   add_foreign_key "activities", "events"
   add_foreign_key "classrooms", "events"
-  add_foreign_key "menus", "events"
-  add_foreign_key "menu_items", "menus"
-  add_foreign_key "pages", "menu_items"
   add_foreign_key "facilitations", "activities"
   add_foreign_key "facilitations", "people"
+  add_foreign_key "pages", "events"
+  add_foreign_key "staff_members", "events"
+  add_foreign_key "staff_members", "people"
+  add_foreign_key "staff_members", "staff_roles"
 end
