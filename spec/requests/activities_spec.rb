@@ -76,7 +76,19 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       index_test("/classes")
     end
 
-    it "only shows edit and delete buttons if you are signed in"
+    it "does not show edit and delete buttons if you are not signed in" do
+      activity = create(:activity)
+
+      get event_activities_url(activity.event)
+      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+    end
+
+    it "shows edit and delete buttons if are not signed in" do
+      activity = create(:activity)
+
+      get event_activities_url(activity.event, as: user)
+      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+    end
   end
 
   describe "POST /events/:event_id/activities" do
