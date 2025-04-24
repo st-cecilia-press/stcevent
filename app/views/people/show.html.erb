@@ -3,7 +3,7 @@
 <h1><%= @person.name %></h1>
 
 <% if @person.activities.any? %>
-  <h2>Activities Facilitated</h2>
+  <h2>Classes Taught</h2>
   <ul>
   <% @person.activities.each do |activity| %>
     <li><%= link_to activity.title, [activity.event, activity] %></li>
