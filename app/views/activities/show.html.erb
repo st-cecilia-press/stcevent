@@ -3,10 +3,12 @@
 <h1><%= @activity.title %></h1>
 
 <% @activity.facilitators.each do |person| %>
-  <h2><%= link_to person.name, person %></h2>
+  <h2 class="people_names"><%= link_to person.name, person %></h2>
 <% end %>
 
+<div class="details">
 <%== Kramdown::Document.new(@activity.description).to_html %>
+</div>
 
 <% if signed_in? %>
   <div>

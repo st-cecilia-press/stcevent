@@ -13,5 +13,7 @@
 
 <% if @person.bio.present? %>
   <h2>Biography</h2>
+  <div class="details">
   <%== Kramdown::Document.new(@person.bio).to_html %>
+  </div>
 <% end %>

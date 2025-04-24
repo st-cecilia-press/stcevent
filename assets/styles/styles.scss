@@ -100,3 +100,13 @@ body {
     background-color: $white;
 
 }
+
+// text block on person and activity pages
+.details {
+  margin-top: 1.5 * $spacer;
+}
+
+// facilitators list on activity page
+.people_names {
+  font-size: 1.75rem;
+}
