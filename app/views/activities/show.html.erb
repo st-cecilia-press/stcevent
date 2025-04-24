@@ -2,8 +2,17 @@
 
 <h1><%= @activity.title %></h1>
 
-<% @activity.people.each do |person| %>
-  <h2><%= link_to person.name, person %></h2>
+<% @activity.facilitators.each do |person| %>
+  <h2 class="people_names"><%= link_to person.name, person %></h2>
 <% end %>
 
+<div class="details">
 <%== Kramdown::Document.new(@activity.description).to_html %>
+</div>
+
+<% if signed_in? %>
+  <div>
+    <%= link_to 'Edit this activity', edit_event_activity_path(@event,@activity) %>
+    <%= button_to 'Delete this activity', [@event, @activity], method: :delete, class: "btn btn-danger" %>
+  </div>
+<% end %>

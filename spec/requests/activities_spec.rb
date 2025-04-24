@@ -16,6 +16,13 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response.body).to include("<title>#{activity.title}</title>")
     end
 
+    it "has an edit link when logged in" do
+      activity = create(:activity, event: create(:event))
+
+      get event_activity_url(activity.event, activity, as: user)
+
+      expect(response.body).to include(edit_event_activity_path(activity.event, activity))
+    end
     it "converts markdown to html as expected" do
       activity = create(:activity, description: "# Here is a Header")
       get event_activity_url(activity.event, activity)
@@ -33,10 +40,10 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    it "shows people associated with the activity" do
+    it "shows facilitators associated with the activity" do
       person1 = create(:person)
       person2 = create(:person)
-      activity = create(:activity, people: [person1, person2])
+      activity = create(:activity, facilitators: [person1, person2])
 
       get event_activity_url(activity.event, activity)
 
@@ -69,7 +76,19 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       index_test("/classes")
     end
 
-    it "only shows edit and delete buttons if you are signed in"
+    it "does not show edit and delete buttons if you are not signed in" do
+      activity = create(:activity)
+
+      get event_activities_url(activity.event)
+      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+    end
+
+    it "shows edit and delete buttons if are not signed in" do
+      activity = create(:activity)
+
+      get event_activities_url(activity.event, as: user)
+      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+    end
   end
 
   describe "POST /events/:event_id/activities" do
@@ -122,6 +141,9 @@ RSpec.describe "/events/:event_id/activities", type: :request do
 
       expect(response).to have_http_status(:not_found)
     end
+
+    it "can choose a person to add a facilitation"
+    it "can add an additional person"
   end
   describe "PATCH /activities/:activity_id" do
     it "can edit the activity and redirects to show the activity" do
@@ -134,6 +156,28 @@ RSpec.describe "/events/:event_id/activities", type: :request do
 
       activity.reload
       expect(activity.description).to eq("new description")
+    end
+
+    it "can add a facilitator" do
+      activity = create(:activity)
+      person = create(:person)
+
+      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: [person.id]}}
+
+      expect(response).to have_http_status(:redirect)
+      activity.reload
+      expect(activity.facilitators.first).to eq(person)
+    end
+
+    it "can add several facilitators" do
+      activity = create(:activity)
+      people = create_list(:person, 3)
+
+      patch event_activity_url(activity.event, activity, as: user), params: {activity: {facilitator_ids: people.map(&:id)}}
+
+      expect(response).to have_http_status(:redirect)
+      activity.reload
+      expect(activity.facilitators).to contain_exactly(*people)
     end
   end
 

@@ -1,9 +1,12 @@
+<h1>Classes for <%= @event.title %></h1>
 <ul>
     <% @activities.each do |activity| %>
       <li> 
-            <%= link_to activity.title, [activity.event, activity] %> 
-            (<%= link_to 'Edit', edit_event_activity_path(activity.event, activity) %>)
-            <%= button_to 'Delete', [activity.event, activity], method: :delete, class: "btn btn-danger" %>
+        <%= link_to activity.title, [activity.event, activity] %>: <%= activity.facilitators.map(&:name).join(", ") %>
+            <% if signed_in? %>
+              (<%= link_to 'Edit', edit_event_activity_path(activity.event, activity) %>)
+              <%= button_to 'Delete', [activity.event, activity], method: :delete, class: "btn btn-danger" %>
+            <% end %>
             </li>
     <% end %>
 </ul>
