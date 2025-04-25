@@ -33,18 +33,47 @@ RSpec.describe "people", type: :request do
     end
   end
   describe "GET /people" do
-    it "can show all people" do
+    it "can show all people when logged in" do
       person1 = create(:person)
       person2 = create(:person)
 
-      get people_url
+      get people_url(as: user)
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include_escaped(person1.name)
       expect(response.body).to include_escaped(person2.name)
     end
-    it "only shows edit and delete buttons if you are signed in"
   end
+
+  describe "GET /event/:event_id/teachers" do
+    it "only shows people who are facilitating an activity for the given event" do
+      facilitator = create(:person)
+      activity = create(:activity, facilitators: [facilitator])
+      non_facilitator = create(:person)
+
+      get "/events/#{activity.event_id}/teachers"
+
+      expect(response.body).to include(facilitator.name)
+      expect(response.body).not_to include(non_facilitator.name)
+    end
+
+    it "does not show edit and delete buttons if you are not signed in" do
+      person = create(:person)
+      activity = create(:activity, facilitators: [person])
+
+      get "/events/#{activity.event_id}/teachers"
+      expect(response.body).not_to include(edit_person_path(person))
+    end
+
+    it "shows edit and delete buttons if signed in" do
+      person = create(:person)
+      activity = create(:activity, facilitators: [person])
+
+      get "/events/#{activity.event_id}/teachers", params: {as: user.id}
+      expect(response.body).to include(edit_person_path(person))
+    end
+  end
+
   describe "POST /people" do
     it "can create a new Person" do
       expect {

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resources :activities, except: [:show, :index]
     end
 
-    resources :people, except: [:show, :index]
+    resources :people, except: [:show]
   end
 
   # these are public
@@ -33,9 +33,10 @@ Rails.application.routes.draw do
     resources :activities, only: [:show, :index]
   end
 
+  get "/events/:event_id/teachers" => "people#facilitators"
+  get "/teachers" => "people#facilitators"
   get "/events/:event_id/*slug" => "pages#show"
-  resources :people, only: [:show, :index]
-  get "/teachers" => "people#index"
+  resources :people, only: [:show]
 
   # uses "current" event
   get "/activities" => "activities#index"
