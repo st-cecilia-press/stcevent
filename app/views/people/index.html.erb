@@ -1,9 +1,12 @@
+<h1><%= @heading %></h1>
 <ul>
-    <% @people.each do |person| %>
-      <li> 
-            <%= link_to person.title, person %> 
-            (<%= link_to 'Edit', edit_person_path(person) %>)
-            <%= button_to 'Delete', person, method: :delete, class: "btn btn-danger" %>
-            </li>
-    <% end %>
+  <% @people.each do |person| %>
+    <li> 
+      <%= link_to person.title, person %> 
+      <% if signed_in? %>
+        (<%= link_to 'Edit', edit_person_path(person) %>)
+        <%= button_to 'Delete', person, method: :delete, class: "btn btn-danger" %>
+      <% end %>
+    </li>
+<% end %>
 </ul>

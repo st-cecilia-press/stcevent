@@ -8,7 +8,15 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @people = Person.all
+    @people = Person.all.order(:name)
+    @heading = "All Teachers"
+  end
+
+  def facilitators
+    @people = Person.for_event(@event).order(:name)
+    @heading = "Teachers"
+
+    render :index
   end
 
   def new

@@ -80,14 +80,14 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       activity = create(:activity)
 
       get event_activities_url(activity.event)
-      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+      expect(response.body).not_to include(edit_event_activity_path(activity.event, activity))
     end
 
     it "shows edit and delete buttons if are not signed in" do
       activity = create(:activity)
 
       get event_activities_url(activity.event, as: user)
-      expect(response).not_to include(edit_event_activity_url(activity.event, activity))
+      expect(response.body).to include(edit_event_activity_path(activity.event, activity))
     end
   end
 
