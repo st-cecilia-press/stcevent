@@ -21,7 +21,7 @@ services:
       mariadb: *healthy
     command: bash -c "bundle exec rails s -b 0.0.0.0"
     environment:
-      - DB_HOST=mariadb
+      - MARIADB_HOST=mariadb
 
   dev:
     build:
@@ -37,7 +37,7 @@ services:
     env_file:
       - .env
     environment:
-      - DB_HOST=mariadb
+      - MARIADB_HOST=mariadb
     command:
       - sleep
       - infinity

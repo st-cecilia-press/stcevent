@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: cecilia
-  host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
+  host: <%= ENV.fetch("MARIADB_HOST") { "127.0.0.1" } %>
 
 development:
   <<: *default
@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: app_production
-  username: app
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+  database: <%= ENV["MARIADB_DATABASE"] %>
+  username: <%= ENV["MARIADB_USERNAME"] %>
+  password: <%= ENV["MARIADB_PASSWORD"] %>

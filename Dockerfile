@@ -25,9 +25,9 @@ RUN npm install -g npm
 RUN groupadd -g ${GID} -o app
 RUN useradd -m -d /app -u ${UID} -g ${GID} -o -s /bin/bash app
 
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
-ENV BUNDLE_PATH /app/vendor/bundle
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+ENV BUNDLE_PATH=/app/vendor/bundle
 
 # Change to app and back so that bundler created files in /gmes are owned by the
 # app user
@@ -54,7 +54,7 @@ USER app
 ################################################################################
 FROM base AS production
 
-ENV RAILS_ENV production
+ENV RAILS_ENV=production
 ENV BUNDLE_WITHOUT=development:test
 
 COPY --chown=${UID}:${GID} . /app

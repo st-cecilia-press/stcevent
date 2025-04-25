@@ -1,0 +1,10 @@
+services:
+
+  web:
+    image: stcevent
+    command: bash -c "bin/rails db:migrate && bin/rails s -b 127.0.0.1 -p 3001"
+    env_file:
+      - .env
+    environment:
+      - RAILS_ENV=production
+    network_mode: host
