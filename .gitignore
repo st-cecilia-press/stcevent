@@ -52,3 +52,4 @@
 .*_history
 **/*.sw?
 db/*sql
+.gnupg/
