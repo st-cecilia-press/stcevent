@@ -28,7 +28,6 @@ $border-color: black;
 
 $primary: #4a82b3;
 
-
 $navbar-light-color: $white;
 $navbar-light-hover-color: $white;
 $navbar-light-active-color: $white;
@@ -103,10 +102,18 @@ body {
 
 // text block on person and activity pages
 .details {
-  margin-top: 1.5 * $spacer;
+    margin-top: 1.5 * $spacer;
 }
 
 // facilitators list on activity page
 .people_names {
-  font-size: 1.75rem;
+    font-size: 1.75rem;
+}
+
+.submit_button,
+.submit_button:hover,
+.submit_button:focus,
+.submit_button:active {
+    background-color: $primary !important;
+    color: $white !important;
 }

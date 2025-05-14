@@ -39,7 +39,11 @@
                 <%= render "top_menu" %>
 
                <main class="container p-5" role="main">
-                 
+                 <% flash.each do |type, msg| %>
+                      <div  class="alert <%=alert_class(type)%>" role="alert">
+                        <%= msg %>
+                      </div>
+                  <% end %> 
                  <%= yield %>
                </main>
                <div class="p-md-5 p-sm-3 mb-0 footer">
