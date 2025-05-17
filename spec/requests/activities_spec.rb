@@ -64,6 +64,18 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       expect(response.body).to include(activity2.title)
     end
 
+    it "has a link for adding a new activity to the event" do
+      activity = create(:activity)
+      get event_activities_url(activity.event, as: user.id)
+      expect(response.body).to include(new_event_activity_path(activity.event))
+    end
+
+    it "does not have a link to add an activity when not signed in" do
+      activity = create(:activity)
+      get event_activities_url(activity.event)
+      expect(response.body).not_to include(new_event_activity_path(activity.event))
+    end
+
     it "works for /event/:event_id/activities" do
       index_test(event_activities_url(event))
     end
