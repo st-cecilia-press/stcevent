@@ -10,3 +10,7 @@
             </li>
     <% end %>
 </ul>
+
+<% if signed_in? %>
+  <%= link_to "New class", new_event_activity_path(@event) %>
+<% end %>

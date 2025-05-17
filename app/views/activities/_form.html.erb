@@ -16,26 +16,26 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="mb-3">
   <%= form.label :title %>
   <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="mb-3">
   <%= form.label "Teachers" %>
     <%= form.collection_select :facilitator_ids, Person.order(:name), :id, :name, {},{class: "form-select", data: {searchable: true}, multiple: true} %>
   </div>
 
-  <div class="form-group">
+  <div class="mb-3">
   <%= form.label :duration %>
   <%= form.text_field :duration, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="mb-3">
     <%= form.label :description %>
     <%= form.textarea :description %>
   </div>
-  <%= form.submit %>
+  <%= form.submit class: "btn submit_button"%>
 <% end %>
 
 <script>

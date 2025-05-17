@@ -38,6 +38,11 @@ RSpec.describe "/event/1/pages", type: :request do
 
       expect(response.body).not_to include(another_event_page.slug)
     end
+    it "has a link for adding a new page to the event" do
+      page1 = create(:page)
+      get event_pages_url(page1.event, as: user.id)
+      expect(response.body).to include(new_event_page_path(page1.event))
+    end
   end
 
   describe "POST /events/:event_id/pages" do

@@ -14,18 +14,18 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
   <%= form.label :slug, style: "display: block" %>
-  <%= form.text_field :slug %>
+  <%= form.text_field :slug, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="mb-3">
   <%= form.label :title, style: "display: block" %>
-  <%= form.text_field :title %>
+  <%= form.text_field :title, class: "form-control"%>
   </div>
 
   <%= form.textarea :body %>
-  <%= form.submit %>
+  <%= form.submit class: "btn submit_button" %>
 <% end %>
 
 <script>
