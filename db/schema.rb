@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_221400) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_17_170235) do
   create_table "activities", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.integer "difficulty_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_221400) do
     t.string "title"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "short_name"
   end
 
   create_table "facilitations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
