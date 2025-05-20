@@ -1,11 +1,10 @@
 <nav class="navbar navbar-expand-md" style="background-color: #bf281d" aria-label="Menu" role="navigation" >
 
   <div class="container container-fluid">
-    <p class="navbar-brand d-block d-md-none" href="#"><%= @event.title %></p>
+    <p class="navbar-brand d-block d-md-none" href="#"><%= @event.short_name || @event.title %></p>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarNav">
       <ul class="navbar-nav ">
         <li class="nav-item"><%= link_to "Home", "/", class: ["nav-link"] %>
