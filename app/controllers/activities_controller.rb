@@ -9,6 +9,7 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.where(event: event)
+    @heading = "Classes"
   end
 
   def new
