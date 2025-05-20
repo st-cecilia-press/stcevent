@@ -11,3 +11,7 @@
     </li>
 <% end %>
 </ul>
+
+<% if signed_in? %>
+<%= link_to "New teacher", new_person_path %>
+<% end %>

@@ -43,6 +43,14 @@ RSpec.describe "people", type: :request do
       expect(response.body).to include_escaped(person1.name)
       expect(response.body).to include_escaped(person2.name)
     end
+    it "does not show a link for adding a new Person when not logged in" do
+      get people_url
+      expect(response.body).not_to include(new_person_path)
+    end
+    it "has a link for adding a new Person when logged in" do
+      get people_url(as: user.id)
+      expect(response.body).to include(new_person_path)
+    end
   end
 
   describe "GET /event/:event_id/teachers" do

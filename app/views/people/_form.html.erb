@@ -17,13 +17,13 @@
   <p>Use the name by which the person should be listed in the event program.
   This will usually be the SCA name. It should also include the title the
   person wishes to use.</p>
-  <div>
-  <%= form.label :name, style: "display: block" %>
-  <%= form.text_field :name %>
+  <div class="mb-3">
+  <%= form.label :name %>
+  <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <%= form.textarea :bio %>
-  <%= form.submit %>
+  <%= form.submit class: "btn submit_button" %>
 <% end %>
 
 <script>
