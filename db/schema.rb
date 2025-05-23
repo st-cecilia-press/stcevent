@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_020615) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_023504) do
   create_table "activities", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.integer "difficulty_id"
@@ -67,6 +67,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_020615) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "short_name"
+    t.bigint "schedule_id"
+    t.index ["schedule_id"], name: "index_events_on_schedule_id"
   end
 
   create_table "facilitations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
@@ -175,6 +177,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_020615) do
   add_foreign_key "activities", "difficulties"
   add_foreign_key "activities", "events"
   add_foreign_key "classrooms", "events"
+  add_foreign_key "events", "schedules"
   add_foreign_key "facilitations", "activities"
   add_foreign_key "facilitations", "people"
   add_foreign_key "pages", "events"
