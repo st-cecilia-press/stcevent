@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_17_170235) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_020615) do
   create_table "activities", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.integer "difficulty_id"
@@ -112,6 +112,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_170235) do
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "schedule_entries", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "schedule_id", null: false
+    t.bigint "activity_id", null: false
+    t.bigint "classroom_id", null: false
+    t.datetime "start_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_schedule_entries_on_activity_id"
+    t.index ["classroom_id"], name: "index_schedule_entries_on_classroom_id"
+    t.index ["schedule_id"], name: "index_schedule_entries_on_schedule_id"
+  end
+
+  create_table "schedules", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_schedules_on_event_id"
   end
 
   create_table "staff_members", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
