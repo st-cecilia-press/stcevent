@@ -58,4 +58,15 @@ FactoryBot.define do
     name { Faker::Name.name }
     bio { Faker::Markdown.sandwich }
   end
+
+  factory :schedule do
+    event
+  end
+
+  factory :schedule_entry do
+    classroom
+    activity
+    schedule
+    start_time { Faker::Time.between(from: schedule.event.start_date, to: schedule.event.end_date) }
+  end
 end
