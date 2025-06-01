@@ -44,7 +44,5 @@ RSpec.describe "schedule", type: :request do
       # entry1's activity should show up second
       expect(response.body).to include(/#{entry2.title}.*#{entry1.title}/m)
     end
-
-    it "shows classroom for schedule entries"
   end
 end

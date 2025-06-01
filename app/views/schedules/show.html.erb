@@ -1,9 +1,11 @@
-<h1>Activity Schedule for <%= @event.title %></h1>
-<ul>
-  <% @schedule.entries.order(:start_time).each do |entry| %>
-      <li> 
-        <%= entry.time_range_display %>: <%= link_to entry.title, [@event, entry.activity] %>: <%= entry.facilitators.map(&:name).join(", ") %>
-      </li>
-    <% end %>
-</ul>
+<h1>Activity Schedule</h1>
+
+<% @schedule.ordered_entries.each do |entry| %>
+  <h2 class="schedule_activity_name"><%= link_to entry.title, [@event, entry.activity] %></h2>
+  <div class="schedule_activity_time"><%= entry.time_range_display %>: <%= entry.classroom.name %></div>
+  <div><%= safe_join(entry.facilitators.map { |f| link_to(f.name, f) },  ", ".html_safe) %></div>
+  <div class="details">
+    <%== Kramdown::Document.new(entry.description).to_html %>
+  </div>
+<% end %>
 

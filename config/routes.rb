@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   # uses "current" event
   get "/activities" => "activities#index"
   get "/classes" => "activities#index"
+  get "/schedule" => "schedules#show"
   get "/*slug" => "pages#show"
   root "pages#show", defaults: {slug: "home"}
 

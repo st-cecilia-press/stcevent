@@ -117,3 +117,13 @@ body {
     background-color: $primary !important;
     color: $white !important;
 }
+
+// activity names on schedule
+.schedule_activity_name {
+  font-size: 1.5rem;
+}
+
+// activity time & classroom
+.schedule_activity_time {
+  font-weight: bold;
+}

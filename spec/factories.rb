@@ -28,7 +28,7 @@ FactoryBot.define do
   end
 
   factory :classroom do
-    name { "Classroom One" }
+    sequence(:name) { |n| "Classroom #{n}" }
     event
   end
 
@@ -49,7 +49,7 @@ FactoryBot.define do
 
   factory :activity do
     title { Faker::Lorem.words(number: 4).join(" ").titlecase }
-    description { Faker::Markdown.sandwich }
+    description { Faker::Lorem.paragraph(sentence_count: 8) + "\n\n" + Faker::Lorem.paragraph }
     duration { Faker::Number.within(range: 30..120) }
     event
   end
