@@ -6,11 +6,12 @@ RSpec.describe "schedule", type: :request do
   let(:schedule) { create(:schedule, event: event) }
   let(:activity1) {  create(:activity, event: event, duration: 60) }
   let(:activity2) {  create(:activity, event: event) }
+  # let!: ensure they exist even if we don't refer to them
+  let!(:entry1) { create(:schedule_entry, schedule: schedule, activity: activity1, start_time: event.start_date + 10.hours ) }
+  let!(:entry2) { create(:schedule_entry, schedule: schedule, activity: activity2, start_time: event.start_date + 11.hours ) }
 
   before(:each) do 
     event.update(schedule: schedule)
-    create(:schedule_entry, schedule: schedule, activity: activity1, start_time: event.start_date + 10.hours )
-    create(:schedule_entry, schedule: schedule, activity: activity2, start_time: event.start_date + 11.hours )
   end
 
   describe "GET /schedule" do
@@ -35,6 +36,15 @@ RSpec.describe "schedule", type: :request do
       expect(response.body).to include("10:00 AM - 11:00 AM")
     end
 
-    it "orders activities by time"
+    it "orders activities by time" do
+      # make sure entry1 (which was created first) has a later start time than entry2
+      entry1.update(start_time: entry2.start_time + 1.hour)
+      get event_schedule_url(event,schedule)
+
+      # entry1's activity should show up second
+      expect(response.body).to include(/#{entry2.title}.*#{entry1.title}/m)
+    end
+
+    it "shows classroom for schedule entries"
   end
 end
