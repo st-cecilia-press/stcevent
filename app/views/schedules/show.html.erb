@@ -1,0 +1,9 @@
+<h1>Activity Schedule for <%= @event.title %></h1>
+<ul>
+  <% @schedule.entries.each do |entry| %>
+      <li> 
+        <%= link_to entry.title, [@event, entry.activity] %>: <%= entry.facilitators.map(&:name).join(", ") %>
+      </li>
+    <% end %>
+</ul>
+

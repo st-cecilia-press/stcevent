@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   has_many :menus
+  has_many :activities
   belongs_to :schedule, optional: true
 
   validates :title, :start_date, :end_date, presence: true

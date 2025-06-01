@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:show, :index] do
     resources :activities, only: [:show, :index]
+    resource :schedule, only: [:show]
   end
 
   get "/events/:event_id/teachers" => "people#facilitators"
