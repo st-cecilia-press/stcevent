@@ -1,4 +1,6 @@
 class ScheduleEntry < ActiveRecord::Base
+  TIME_DISPLAY_FORMAT = "%l:%M %p" # e.g. 9:00 AM
+
   belongs_to :schedule
   belongs_to :classroom
   belongs_to :activity
@@ -11,5 +13,9 @@ class ScheduleEntry < ActiveRecord::Base
 
   def end_time
     start_time + duration.minutes
+  end
+
+  def time_range_display
+    start_time.strftime(TIME_DISPLAY_FORMAT) + " - " + end_time.strftime(TIME_DISPLAY_FORMAT)
   end
 end

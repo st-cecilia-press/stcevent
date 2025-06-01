@@ -4,7 +4,7 @@ RSpec.describe "schedule", type: :request do
 
   let(:event) { create(:event) }
   let(:schedule) { create(:schedule, event: event) }
-  let(:activity1) {  create(:activity, event: event) }
+  let(:activity1) {  create(:activity, event: event, duration: 60) }
   let(:activity2) {  create(:activity, event: event) }
 
   before(:each) do 
@@ -30,7 +30,10 @@ RSpec.describe "schedule", type: :request do
       expect(response.body).not_to include(unscheduled_activity.title)
     end
 
-    it "should show the time for scheduled activities"
+    it "should show the time for scheduled activities" do
+      get event_schedule_url(event, schedule)
+      expect(response.body).to include("10:00 AM - 11:00 AM")
+    end
 
     it "orders activities by time"
   end
