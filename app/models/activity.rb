@@ -1,7 +1,8 @@
 class Activity < ActiveRecord::Base
+  # DEPRECATED FIELDS -- should use ScheduleEntry: classroom, start_time
+  #
   belongs_to :difficulty, optional: true
   belongs_to :event
-  belongs_to :classroom, optional: true
   belongs_to :activity_type, optional: true
   belongs_to :activity_subtype, optional: true
   has_many :facilitations, dependent: :destroy

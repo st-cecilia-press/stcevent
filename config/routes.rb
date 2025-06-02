@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:show, :index] do
     resources :activities, only: [:show, :index]
+    resource :schedule, only: [:show]
   end
 
   get "/events/:event_id/teachers" => "people#facilitators"
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
   # uses "current" event
   get "/activities" => "activities#index"
   get "/classes" => "activities#index"
+  get "/schedule" => "schedules#show"
   get "/*slug" => "pages#show"
   root "pages#show", defaults: {slug: "home"}
 

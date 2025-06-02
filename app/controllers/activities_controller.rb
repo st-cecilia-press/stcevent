@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
   end
 
   def index
-    @activities = Activity.where(event: event)
+    @activities = event.activities
     @heading = "Classes"
   end
 

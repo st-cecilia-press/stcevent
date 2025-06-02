@@ -1,0 +1,61 @@
+<h1>Activity Schedule</h1>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.3.0/dist/event-calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.3.0/dist/event-calendar.min.js"></script>
+
+<a name="schedulegrid"><div id="schedulegrid"></div></a>
+
+<style>
+.ec-time-grid .ec-time, .ec-time-grid .ec-line {
+  height: 48px;
+}
+</style>
+
+<script>
+function createEvents() {
+    let today = "2025-06-02"
+
+    return [
+        {start: today + " 10:00", end: today + " 11:00", resourceId: 1, title: "activity 1"},
+        {start: today + " 11:00", end: today + " 12:00", resourceId: 1, title: "activity 2"},
+        {start: today + " 10:00", end: today + " 11:00", resourceId: 2, title: "activity 1"},
+        {start: today + " 11:00", end: today + " 12:00", resourceId: 2, title: "activity 2"},
+      ];
+  }
+
+let ec = EventCalendar.create(
+    // HTML element the calendar will be mounted to
+    document.getElementById('schedulegrid'),
+    // Options object
+
+    {
+        view: 'resourceTimeGridDay',
+        events: <%= @json_activities %>,
+        resources: <%= @json_classrooms %>,
+        date: <%= @event.start_date.to_json.html_safe %>,
+        slotMinTime: "10:00:00",
+        slotMaxTime: "17:00:00",
+        allDaySlot: false,
+        eventStartEditable: false,
+        eventDurationEditable: false,
+        slotHeight: 48,
+        height: "800px",
+        headerToolbar: {start: 'title', center: '', end: ''}
+    }
+  );
+</script>
+
+
+<% @schedule.ordered_entries.each do |entry| %>
+  <div class="schedule_activity">
+    <!-- TODO: floating option to go back to top? -->
+    <a href="#schedulegrid" style="float: right">Up to Schedule</a>
+    <h2 class="schedule_activity_name"><%= link_to entry.title, [@event, entry.activity], name: "entry_#{entry.id}" %></h2>
+    <div class="schedule_activity_time"><%= entry.time_range_display %>: <%= entry.classroom.name %></div>
+    <div><%= safe_join(entry.facilitators.map { |f| link_to(f.name, f) },  ", ".html_safe) %></div>
+    <div class="details">
+      <%== Kramdown::Document.new(entry.description).to_html %>
+    </div>
+  </div>
+<% end %>
+
