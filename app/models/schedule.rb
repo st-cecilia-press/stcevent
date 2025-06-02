@@ -4,7 +4,6 @@ class Schedule < ActiveRecord::Base
   has_many :entries, class_name: "ScheduleEntry"
 
   def ordered_entries
-    entries.includes(:classroom).order(:start_time,"classroom.name")
+    entries.includes(:classroom).order(:start_time, "classroom.name")
   end
-
 end

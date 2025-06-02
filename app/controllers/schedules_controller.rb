@@ -26,18 +26,17 @@ class SchedulesController < ApplicationController
         start: entry.start_time.strftime("%Y-%m-%d %H:%m"),
         end: entry.end_time.strftime("%Y-%m-%d %H:%m"),
         resourceId: entry.classroom_id,
-        title: { html: %{<a href="#entry_#{entry.id}">#{entry.title}</a>}
-      }}
+        title: {html: %(<a href="#entry_#{entry.id}">#{entry.title}</a>)}
+      }
     end.to_json.html_safe
   end
 
   def ec_resources_json
     @event.classrooms.map do |classroom|
-      { 
+      {
         id: classroom.id,
         title: classroom.name
       }
     end.to_json.html_safe
   end
-
 end

@@ -46,23 +46,20 @@ module Seeds
   4.times do
     classroom = create(:classroom, event: event)
     (1..4).each do |time_offset|
+      activity = create(:activity,
+        # Later on, we may want to have an "are you sure" for
+        # double booking, and the same facilitator shouldn't be
+        # listed twice for the same activity -- but we aren't
+        # doing that yet.
+        facilitators: [people.sample, people.sample],
+        event: event,
+        duration: [30, 45, 60].sample)
 
-      activity = create(:activity, 
-                        # Later on, we may want to have an "are you sure" for
-                        # double booking, and the same facilitator shouldn't be
-                        # listed twice for the same activity -- but we aren't
-                        # doing that yet.
-                        facilitators: [people.sample, people.sample], 
-                        event: event, 
-                        duration: [30, 45, 60].sample 
-                       )
-
-      create(:schedule_entry, 
-             schedule: schedule, 
-             activity: activity,
-             classroom: classroom,
-             start_time: event.start_date + (10+time_offset).hours
-            )
+      create(:schedule_entry,
+        schedule: schedule,
+        activity: activity,
+        classroom: classroom,
+        start_time: event.start_date + (10 + time_offset).hours)
     end
   end
 
