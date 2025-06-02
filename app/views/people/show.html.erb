@@ -5,8 +5,8 @@
 <% if @person.activities.any? %>
   <h2>Classes Taught</h2>
   <ul>
-  <% @person.activities.each do |activity| %>
-    <li><%= link_to activity.title, [activity.event, activity] %></li>
+  <% @person.activities.each do |person| %>
+    <li><%= link_to person.title, [person.event, person] %></li>
   <% end %>
   </ul>
 <% end %>
@@ -15,5 +15,11 @@
   <h2>Biography</h2>
   <div class="details">
   <%== Kramdown::Document.new(@person.bio).to_html %>
+  </div>
+<% end %>
+
+<% if signed_in? %>
+  <div class="show_actions">
+    <%= button_to 'Edit this person', edit_person_path(@person), method: :get, class: "btn submit_button" %>
   </div>
 <% end %>

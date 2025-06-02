@@ -11,8 +11,8 @@
 </div>
 
 <% if signed_in? %>
-  <div>
-    <%= link_to 'Edit this activity', edit_event_activity_path(@event,@activity) %>
+  <div class="show_actions">
+    <%= button_to 'Edit this activity', edit_event_activity_path(@event,@activity), method: :get, class: "btn submit_button" %>
     <%= button_to 'Delete this activity', [@event, @activity], method: :delete, class: "btn btn-danger" %>
   </div>
 <% end %>
