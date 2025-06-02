@@ -30,8 +30,8 @@ let ec = EventCalendar.create(
 
     {
         view: 'resourceTimeGridDay',
-        events: <%= @json_activities %>,
-        resources: <%= @json_classrooms %>,
+        events: <%= @schedule.entries_json %>,
+        resources: <%= @event.classrooms_json %>,
         date: <%= @event.start_date.to_json.html_safe %>,
         slotMinTime: "10:00:00",
         slotMaxTime: "17:00:00",
