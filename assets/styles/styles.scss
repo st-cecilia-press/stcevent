@@ -127,3 +127,16 @@ body {
 .schedule_activity_time {
   font-weight: bold;
 }
+
+.ec-event-title {
+  font-size: 1.0rem;
+}
+
+.ec-event-title a {
+  color: #ffffff
+}
+
+.ec-event-title a:hover {
+  color: $body-bg
+}
+
