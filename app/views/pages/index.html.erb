@@ -4,15 +4,21 @@
 
 <h1>Pages</h1>
 <div id="pages">
-  <ul>
-  <% @pages.each do |page| %>
-    <li>
-      <tt><%= link_to page.slug, [page.event, page] %></tt>: <%= page.title %> 
-            (<%= link_to 'Edit', edit_event_page_path(page.event, page) %>)
-            <%= button_to 'Delete', [page.event, page], method: :delete, class: "btn btn-danger" %>
-    </li>
-  <% end %>
-  </ul>
+  <table class="index">
+    <tr>
+      <th>Title</th>
+      <th>Slug</th>
+    </tr>
+
+    <% @pages.each do |page| %>
+      <tr>
+        <td> <%= link_to page.title, [page.event, page] %> </td>
+        <td> <tt><%= page.slug %></tt> </td>
+        <td> <%= button_to 'Edit', edit_event_page_path(page.event, page), method: :get, class: "btn submit_button" %> </td>
+        <td> <%= button_to 'Delete', [page.event, page], method: :delete, class: "btn btn-danger" %> </td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
-<%= link_to "New page", new_event_page_path(@event) %>
+<%= button_to "New page", new_event_page_path(@event), method: :get, class: "btn submit_button" %>

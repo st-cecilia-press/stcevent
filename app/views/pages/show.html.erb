@@ -5,8 +5,8 @@
 <%== Kramdown::Document.new(@page.body).to_html %>
 
 <% if signed_in? %>
-  <div>
-    <%= link_to 'Edit this page', edit_event_page_path(@event,@page) %>
+  <div class="show_actions">
+    <%= button_to 'Edit this page', edit_event_page_path(@event,@page), method: :get, class: "btn submit_button" %>
     <%= button_to 'Delete this page', [@event, @page], method: :delete, class: "btn btn-danger" %>
   </div>
 <% end %>

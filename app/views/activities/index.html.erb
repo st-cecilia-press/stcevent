@@ -1,17 +1,28 @@
 <% content_for :title, @heading %>
 <h1><%=@heading%> for <%= @event.title %></h1>
 <ul>
+  <table class="index">
+      <tr>
+        <th>Title</th>
+        <th>Teacher(s)</th>
+      </tr>
     <% @activities.each do |activity| %>
-      <li> 
-        <%= link_to activity.title, [activity.event, activity] %>: <%= activity.facilitators.map(&:name).join(", ") %>
-            <% if signed_in? %>
-              (<%= link_to 'Edit', edit_event_activity_path(activity.event, activity) %>)
-              <%= button_to 'Delete', [activity.event, activity], method: :delete, class: "btn btn-danger" %>
-            <% end %>
-            </li>
+      <tr> 
+        <td>
+          <%= link_to activity.title, [activity.event, activity] %>
+        </td>
+        <td>
+          <%= activity.facilitators.map(&:name).join(", ") %>
+        </td>
+        <% if signed_in? %>
+          <td><%= button_to 'Edit', edit_event_activity_path(activity.event, activity), method: :get, class: "btn submit_button" %></td>
+          <td><%= button_to 'Delete', [activity.event, activity], method: :delete, class: "btn btn-danger" %></td>
+        <% end %>
+      </tr>
     <% end %>
+  </table>
 </ul>
 
 <% if signed_in? %>
-  <%= link_to "New class", new_event_activity_path(@event) %>
+  <%= button_to "New class", new_event_activity_path(@event), method: :get, class: "btn submit_button" %>
 <% end %>

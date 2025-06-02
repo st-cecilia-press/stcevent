@@ -1,17 +1,18 @@
 <% content_for :title, @heading %>
 <h1><%= @heading %></h1>
 <ul>
+  <table class="index">
   <% @people.each do |person| %>
-    <li> 
-      <%= link_to person.title, person %> 
+    <tr> 
+      <td>• <%= link_to person.title, person %> </td>
       <% if signed_in? %>
-        (<%= link_to 'Edit', edit_person_path(person) %>)
-        <%= button_to 'Delete', person, method: :delete, class: "btn btn-danger" %>
+        <td><%= button_to 'Edit', edit_person_path(person), method: :get, class: "btn submit_button" %></td>
       <% end %>
-    </li>
-<% end %>
+    </tr>
+  <% end %>
+  </table>
 </ul>
 
 <% if signed_in? %>
-<%= link_to "New teacher", new_person_path %>
+<%= button_to "New teacher", new_person_path, method: :get, class: "btn submit_button" %>
 <% end %>

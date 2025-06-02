@@ -140,3 +140,14 @@ body {
   color: $body-bg
 }
 
+table.index td {
+  padding: 0.25rem
+}
+
+.show_actions .button_to {
+  display: inline
+}
+
+.show_actions .btn-danger {
+  float: right
+}
