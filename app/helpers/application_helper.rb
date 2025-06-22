@@ -1,6 +1,6 @@
 module ApplicationHelper
   # Hardcoded for now; could vary by event in the future
-  EVENT_SERIES = "St. Cecilia"
+  EVENT_SERIES = "St. Cecilia at the Tower"
 
   def title_from(thing)
     content_for :title, thing.title
