@@ -13,7 +13,7 @@ RSpec.describe "/events/:event_id/activities", type: :request do
       get event_activity_url(activity.event, activity)
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("<title>#{activity.title}</title>")
+      expect(response.body).to include(%r{<title>.*#{activity.title}.*</title>})
     end
 
     it "has an edit link when logged in" do

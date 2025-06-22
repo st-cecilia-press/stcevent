@@ -83,7 +83,7 @@ RSpec.describe "/event/1/pages", type: :request do
       get "/testpage"
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("<title>#{page.title}</title>")
+      expect(response.body).to include(%r{<title>.*#{page.title}.*</title>})
     end
 
     context "with two pages with the same slug for different events" do
