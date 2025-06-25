@@ -12,17 +12,6 @@
 </style>
 
 <script>
-function createEvents() {
-    let today = "2025-06-02"
-
-    return [
-        {start: today + " 10:00", end: today + " 11:00", resourceId: 1, title: "activity 1"},
-        {start: today + " 11:00", end: today + " 12:00", resourceId: 1, title: "activity 2"},
-        {start: today + " 10:00", end: today + " 11:00", resourceId: 2, title: "activity 1"},
-        {start: today + " 11:00", end: today + " 12:00", resourceId: 2, title: "activity 2"},
-      ];
-  }
-
 let ec = EventCalendar.create(
     // HTML element the calendar will be mounted to
     document.getElementById('schedulegrid'),
