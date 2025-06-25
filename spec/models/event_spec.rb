@@ -15,7 +15,7 @@ RSpec.describe Event do
 
   it "a future event is current" do
     create(:event, start_date: Date.today)
-    newer = create(:event, start_date: Date.tomorrow)
+    newer = create(:event, start_date: Date.today + 10)
 
     expect(Event.current.id).to eq(newer.id)
   end
