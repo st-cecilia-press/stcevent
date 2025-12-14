@@ -13,12 +13,23 @@ RSpec.describe "/event/1/pages", type: :request do
   end
 
   describe "GET /" do
+
     it "gets the 'home' page" do
       page = create(:page, slug: "home")
 
       get "/"
 
       expect(response.body).to include(page.title)
+    end
+
+    it "shows the date for the current event" do
+      page = create(:page, slug: "home")
+      page.event.start_date = Date.parse("2023-09-08")
+      page.event.save
+
+      get "/"
+
+      expect(response.body).to include("September 8th, 2023")
     end
   end
 

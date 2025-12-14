@@ -17,4 +17,8 @@ class Event < ActiveRecord::Base
       }
     end.to_json.html_safe
   end
+
+  def display_date
+    start_date.to_date.to_formatted_s(:long_ordinal)
+  end
 end
