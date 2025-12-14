@@ -28,7 +28,7 @@
                     <div class="pt-4">
                       <p class="display-2 mb-1"><%= link_to "The Barony of Cynnabar", "http://cynnabar.org", class: ["link-underline", "link-underline-opacity-0","link-underline-opacity-100-hover"]%> Presents</p>
                       <h1 class="display-1 mb-0"><%= @event.title %></h1>
-                      <p class="display-2 ">June 14, 2025</p>
+                      <p class="display-2 "><%= @event.display_date %></p>
                     </div>
                 </div>
                 <%= render "top_menu" %>
