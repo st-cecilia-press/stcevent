@@ -19,32 +19,29 @@ class Event < ActiveRecord::Base
   end
 
   def display_date
-
     return "NO NEW YEAR'S EVE EVENTS" unless start_date.year == end_date.year
 
-    if(start_date.to_date == end_date.to_date)
+    if start_date.to_date == end_date.to_date
       start_date.to_date.to_formatted_s(:long_ordinal)
     elsif start_date.month == end_date.month
       # e.g. September 6th - 7th, 2024
-      [ 
+      [
         start_date.strftime("%B"),
-        start_date.day.ordinalize, 
+        start_date.day.ordinalize,
         "-",
         end_date.day.ordinalize + ",",
         start_date.year
       ].join(" ")
     else
       # e.g. May 31st - June 1st, 2023
-      [ 
+      [
         start_date.strftime("%B"),
-        start_date.day.ordinalize, 
+        start_date.day.ordinalize,
         "-",
         end_date.strftime("%B"),
         end_date.day.ordinalize + ",",
         start_date.year
       ].join(" ")
     end
-
-
   end
 end

@@ -13,7 +13,6 @@ RSpec.describe "/event/1/pages", type: :request do
   end
 
   describe "GET /" do
-
     it "gets the 'home' page" do
       page = create(:page, slug: "home")
 
