@@ -1,0 +1,80 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Menus" %>
+
+<% if @event.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@event.errors.count, "error") %> prohibited these menus from being saved:</h2>
+
+    <ul>
+      <% @event.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Menus</h1>
+
+<div id="menus">
+  <%= form_with model: @event do |form| %>
+
+    <ul style="list-style-type: none">
+    <%= form.fields_for :menus, @event.form_menus do |menus_form| %>
+      <li class="mb-5">
+
+        <div class="row gy-2 gx-3 mb-2 align-items-center">
+          <div class="col-2">
+            <%= menus_form.label :order %>
+            <%= menus_form.number_field :order, class: "form-control" %>
+          </div>
+
+          <div class="col-auto">
+            <%= menus_form.label :name %>
+            <%= menus_form.text_field :name, class: "form-control" %>
+          </div>
+
+          <% if menus_form.object.id %>
+            <div class="form-check col-2">
+              <%= menus_form.label "Delete?", class: "form-check-label" %>
+              <%= menus_form.checkbox :_destroy, class: "form-check-input"   %>
+            </div>
+          <% end %>
+        </div>
+
+        <ul style="list-style-type: none">
+          <%= menus_form.fields_for :menu_items, menus_form.object.form_menu_items do |menu_items_form| %>
+            <li class="mb-2 row gy-2 gx-3 align-items-center">
+              <div class="col-2">
+              <%= menu_items_form.label :order %>
+              <%= menu_items_form.number_field :order, class: "form-control" %>
+              </div>
+
+              <div class="col-4">
+              <%= menu_items_form.label :name %>
+              <%= menu_items_form.text_field :name, class: "form-control" %>
+              </div>
+
+              <div class="col-4">
+              <%= menu_items_form.label :url, "URL" %>
+              <%= menu_items_form.text_field :url, class: "form-control", pattern: "(https?|/).*?" %>
+              </div>
+
+              <% if menu_items_form.object.id %>
+                <div class="form-check col-2">
+                  <%= menu_items_form.label "Delete?", class: "form-check-label" %>
+                  <%= menu_items_form.checkbox :_destroy, class: "form-check-input"   %>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    </ul>
+
+    <div>
+      <%= form.submit  class: "btn submit_button"%>
+    </div>
+  <% end %>
+</div>

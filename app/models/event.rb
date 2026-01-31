@@ -1,9 +1,15 @@
 class Event < ActiveRecord::Base
   has_many :menus
+
+  accepts_nested_attributes_for :menus,
+    reject_if: lambda { |a| a["name"].blank? || a["order"].blank? },
+    allow_destroy: true
+
   has_many :activities
   has_many :classrooms
   belongs_to :schedule, optional: true
 
+  validates_associated :menus
   validates :title, :start_date, :end_date, presence: true
 
   # Current event is the most recent (even if the most recent is in the future)
@@ -43,5 +49,9 @@ class Event < ActiveRecord::Base
         start_date.year
       ].join(" ")
     end
+  end
+
+  def form_menus
+    menus.sort_by(&:order) + [menus.build]
   end
 end

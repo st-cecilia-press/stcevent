@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   # resources are protected
   constraints Clearance::Constraints::SignedIn.new do
-    resources :menus
     resources :events, except: [:show, :index] do
       resources :pages
       resources :activities, except: [:show, :index]
