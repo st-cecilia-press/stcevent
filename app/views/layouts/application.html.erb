@@ -42,7 +42,7 @@
                  <%= yield %>
                </main>
                <div class="p-md-5 p-sm-3 mb-0 footer">
-                Contact: <%= link_to "The event stewards", "mailto:cecilia@cynnabar.org" %>
+                 Contact: <%= link_to "The event stewards", "mailto:#{ENV["EVENT_STEWARD_EMAIL_ADDRESS"]}" %>
                 </div>
             </div>
             <div class="col-lg-2 secondary-bg"></div>

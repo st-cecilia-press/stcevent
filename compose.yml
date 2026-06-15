@@ -20,8 +20,11 @@ services:
     depends_on:
       mariadb: *healthy
     command: bash -c "bundle exec rails s -b 0.0.0.0"
+    env_file:
+      - .env
     environment:
       - MARIADB_HOST=mariadb
+
 
   dev:
     build:
